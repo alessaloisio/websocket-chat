@@ -1,1 +1,10 @@
 @import "./reset";
+
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f5fb;
+  color: #435152;
+  font-size: 1em;
+}

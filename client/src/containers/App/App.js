@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
+import React from "react";
 
+import Header from "../../components/header/header";
+
+import "../../assets/icons/flaticon.css";
 import "./App.scss";
 
 const App = () => {
   return (
     <div className="App">
-      <h1>Online Chat</h1>
+      <Header />
     </div>
   );
 };
