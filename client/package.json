@@ -20,7 +20,7 @@
       "patterns": [
         "src"
       ],
-      "extensions": "js,jsx"
+      "extensions": "js,jsx,scss,css"
     }
   },
   "eslintConfig": {
@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "node-sass": "^4.13.1",
     "npm-watch": "^0.6.0"
   }
 }
