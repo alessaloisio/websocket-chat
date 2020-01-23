@@ -2,6 +2,11 @@ import React from "react";
 
 import List from "./chat-widget-list";
 
+const list = [
+  { username: "Alessio", avatar: "https://i.pravatar.cc/32", unread: 4 },
+  { username: "Serge", avatar: "https://i.pravatar.cc/32", unread: 2 }
+];
+
 export default () => {
   return (
     <div>
@@ -25,9 +30,9 @@ export default () => {
         </div>
       </div>
       {/* Groupes */}
-      <List name="Groupes" />
+      <List name="Groupes" list={list} />
       {/* Users */}
-      <List name="Users" />
+      <List name="Users" list={list} />
     </div>
   );
 };
