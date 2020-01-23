@@ -3,7 +3,10 @@ import React from "react";
 export default () => {
   return (
     <div>
-      <h2>Sidebar</h2>
+      {/* User status */}
+      {/* Search */}
+      {/* Groupes */}
+      {/* Users */}
     </div>
   );
 };
