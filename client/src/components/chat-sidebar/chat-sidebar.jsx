@@ -9,7 +9,7 @@ const list = [
 
 export default () => {
   return (
-    <div>
+    <div className="Chat-Sidebar">
       {/* User status */}
       <div className="Widget-User">
         <div className="status">
@@ -29,10 +29,11 @@ export default () => {
           </button>
         </div>
       </div>
+      <List name="Favorites" list={list} />
       {/* Groupes */}
       <List name="Groupes" list={list} />
       {/* Users */}
-      <List name="Users" list={list} />
+      <List name="Friends" list={list} />
     </div>
   );
 };
