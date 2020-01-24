@@ -2,6 +2,16 @@
   flex-basis: 70%;
 
   .Widget-Conversation {
+    padding: 0 !important;
+
+    div[class^="conversation-"] {
+      padding: 1.5em;
+      border-bottom: 1px solid #eee;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
     .conversation-options {
       display: flex;
       justify-content: space-between;
