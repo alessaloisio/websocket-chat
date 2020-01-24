@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./chat-content.scss";
+
 export default () => {
   return (
     <div className="Chat-Content">
