@@ -5,7 +5,7 @@
     padding: 0 !important;
 
     div[class^="conversation-"] {
-      padding: 1.5em;
+      padding: 1.5em 2em;
       border-bottom: 1px solid #eee;
       &:last-child {
         border-bottom: none;
@@ -15,6 +15,69 @@
     .conversation-options {
       display: flex;
       justify-content: space-between;
+      padding: 1em !important;
+
+      .filter {
+        margin-right: 1em;
+
+        i::before {
+          font-size: 1.25em;
+          margin-right: 0.5em;
+        }
+      }
+
+      .search-message {
+        flex: auto;
+        display: flex;
+
+        .search-button {
+          border-radius: 10px 0 0 10px;
+          cursor: default;
+        }
+
+        input {
+          border: 2px solid #f5f5fb;
+          border-radius: 0 10px 10px 0;
+          outline: none;
+          padding: 0 1em;
+        }
+      }
+
+      .right-options {
+        display: flex;
+        align-items: center;
+
+        .favorites {
+          margin-right: 1em;
+
+          &.active {
+            color: #ffd05b;
+          }
+        }
+
+        i::before {
+          font-size: 1em;
+          cursor: pointer;
+        }
+      }
     }
+
+    .conversation-informations {
+      .name {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+      .description {
+        font-size: 0.75em;
+      }
+    }
+
+    .conversation-content {
+      display: flex;
+    }
+  }
+
+  .Widget-Input {
+    display: flex;
   }
 }

@@ -8,20 +8,18 @@ export default () => {
       <div className="Widget-Conversation">
         {/* Conversation Options (filters, favourites, manage) */}
         <div className="conversation-options">
-          <span className="filter">
+          <div className="btn filter">
             <i className="flaticon-filter"></i>
             Filter
-          </span>
+          </div>
 
           <div className="search-message">
-            <span className="search-button">Search</span>
-            <div className="search-input">
-              <input type="text" />
-            </div>
+            <span className="btn search-button">Search:</span>
+            <input type="text" />
           </div>
 
           <div className="right-options">
-            <i className="flaticon-star"></i>
+            <i className="favorites flaticon-star active"></i>
             <div className="more-options">
               <i className="flaticon-menu"></i>
             </div>
@@ -30,7 +28,7 @@ export default () => {
 
         {/* Conversation Informations (speakers, owner, name, description) */}
         <div className="conversation-informations">
-          <p className="name">Alessandro Aloisio</p>
+          <p className="name">Serge Bayet</p>
           <p className="description">FullStack Web Developer</p>
         </div>
 
@@ -67,7 +65,7 @@ export default () => {
                 <span className="avatar">
                   <img src="https://i.pravatar.cc/64" alt="" />
                 </span>
-                <p className="name">Alessio</p>
+                <p className="name">You</p>
                 <p className="datetime">now</p>
                 <p className="message">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic

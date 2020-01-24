@@ -1,4 +1,23 @@
 .App {
   max-width: 960px;
   margin: 0 auto;
+
+  div[class^="Widget"] {
+    background-color: #fff;
+    padding: 1.5em;
+    border-radius: 12px;
+    margin-bottom: 1em;
+  }
+
+  .btn {
+    background-color: #f5f5fb;
+    padding: 0.75em 1em;
+    border-radius: 10px;
+    font-weight: 700;
+    display: flex;
+    font-size: 0.8em;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 }
