@@ -1,3 +1,10 @@
 .Chat-Content {
   flex-basis: 70%;
+
+  .Widget-Conversation {
+    .conversation-options {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }

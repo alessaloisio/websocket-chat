@@ -1,4 +1,11 @@
 .Chat {
   display: flex;
   flex-direction: row-reverse;
+
+  div[class^="Widget"] {
+    background-color: #fff;
+    padding: 1.5em;
+    border-radius: 12px;
+    margin-bottom: 1em;
+  }
 }
