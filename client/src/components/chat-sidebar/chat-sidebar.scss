@@ -1,3 +1,72 @@
 .Chat-Sidebar {
   flex-basis: 30%;
+
+  div[class^="Widget"] {
+    background-color: #fff;
+    padding: 1.5em;
+    border-radius: 12px;
+
+    margin-bottom: 1em;
+  }
+
+  .Widget-User {
+    display: flex;
+
+    .status {
+      width: 1em;
+      height: 1em;
+      margin-right: 1em;
+
+      span {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        display: block;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .active {
+        background-color: #4eb857;
+      }
+    }
+
+    .info {
+      .name {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+      .description {
+        font-size: 0.75em;
+      }
+    }
+  }
+
+  .Widget-Search {
+    padding: 0 !important;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      flex-basis: 100%;
+      border: 0;
+      padding: 1em 2em;
+      background: none;
+      outline: none;
+    }
+
+    button {
+      background: none;
+      border: none;
+      outline: none;
+      padding: 0;
+      cursor: pointer;
+
+      i::before {
+        color: #a7a9ac;
+        padding: 0 2em 0 1em;
+        margin: 0;
+        font-size: 1.2em;
+      }
+    }
+  }
 }

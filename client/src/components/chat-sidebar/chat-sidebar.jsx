@@ -24,12 +24,10 @@ export default () => {
       </div>
       {/* Search */}
       <div className="Widget-Search">
-        <div className="input-search">
-          <input type="text" />
-          <button>
-            <i className="flaticon-loupe"></i>
-          </button>
-        </div>
+        <input type="text" placeholder="Search" />
+        <button>
+          <i className="flaticon-loupe"></i>
+        </button>
       </div>
       <List name="Favorites" list={list} />
       {/* Groupes */}
