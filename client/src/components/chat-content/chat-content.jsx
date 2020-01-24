@@ -83,9 +83,15 @@ export default () => {
         <div className="emoji">
           <i className="flaticon-smile"></i>
         </div>
-        <input type="text" placeholder="Type a message" />
-        <i className="flaticon-attach"></i>
-        <i className="flaticon-paper-plane"></i>
+        <textarea
+          className="input-message"
+          rows="1"
+          placeholder="Type a message"
+        ></textarea>
+        <div className="input-options">
+          <i className="attach flaticon-attach"></i>
+          <i className="send flaticon-paper-plane"></i>
+        </div>
       </div>
     </div>
   );

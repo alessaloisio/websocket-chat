@@ -174,5 +174,40 @@
 
   .Widget-Input {
     display: flex;
+    justify-content: space-between;
+    padding: 1em 1.5em !important;
+
+    i::before {
+      color: #c4c4c4;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    .emoji {
+      margin-right: 1em;
+    }
+
+    .input-message {
+      flex: auto;
+      outline: none;
+      padding: 4px 1em;
+      border: none;
+    }
+
+    .input-options {
+      .attach {
+        &::before {
+          margin-left: 1em;
+          padding-right: 0.5em;
+          border-right: 1px solid #ebebeb;
+        }
+      }
+      .send {
+        &::before {
+          color: var(--main-color);
+          padding-left: 0.5em;
+        }
+      }
+    }
   }
 }
