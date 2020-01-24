@@ -36,42 +36,29 @@ export default () => {
         <div className="conversation-content">
           <div className="messages">
             <ul>
-              <li className="msg blue">
-                <span className="avatar">
-                  <img src="https://i.pravatar.cc/64" alt="" />
-                </span>
-                <p className="name">Serge</p>
-                <p className="datetime">3 days ago</p>
-                <p className="message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                  non magnam nostrum id earum itaque minima cumque distinctio
-                  iusto! Repudiandae, ullam corporis! Quibusdam impedit in
-                  deleniti nobis placeat sed? Blanditiis?
-                </p>
-              </li>
-              <li className="msg blue">
-                <span className="avatar">
-                  <img src="https://i.pravatar.cc/64" alt="" />
-                </span>
-                <p className="name">Serge</p>
-                <p className="datetime">2 days ago</p>
-                <p className="message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                  non magnam nostrum id earum itaque minima cumque distinctio
-                  iusto! Repudiandae, ullam corporis!
-                </p>
-              </li>
               <li className="msg">
-                <span className="avatar">
+                <div className="avatar">
                   <img src="https://i.pravatar.cc/64" alt="" />
-                </span>
-                <p className="name">You</p>
-                <p className="datetime">now</p>
-                <p className="message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                  non magnam nostrum id earum itaque minima cumque distinctio
-                  iusto!
-                </p>
+                </div>
+                <div className="wrapper">
+                  <div className="head">
+                    <p className="name">Serge</p>
+                    <p className="datetime">3 days ago</p>
+                  </div>
+                  <p className="message">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
+                    non magnam nostrum id earum itaque minima cumque distinctio
+                    iusto! Repudiandae, ullam corporis! Quibusdam impedit in
+                    deleniti nobis placeat sed? Blanditiis?
+                  </p>
+                </div>
+              </li>
+              <li className="msg mine">
+                <div className="wrapper">
+                  <p className="message">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
               </li>
             </ul>
           </div>
