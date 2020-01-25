@@ -35,3 +35,6 @@ so '*npm install*' on **ROOT DIRECTORY** AND on **client**
 
 ## Cheatsheet / Documents
 * [Emit Socket.io](https://socket.io/docs/emit-cheatsheet/)
+* [Rooms/Namespaces](https://socket.io/docs/rooms-and-namespaces/)
+* [Avatar Faker](https://pravatar.cc/)
+* [Picsum](https://picsum.photos/)
