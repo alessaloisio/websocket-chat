@@ -27,9 +27,15 @@ so '*npm install*' on **ROOT DIRECTORY** AND on **client**
 
 # Tutorial
 ## 1. Create the user interface for the chat
-## 2. Manage the server to send and receive 
+  1.1 Create React Containers and Components for the chat app
 
-
+## 2. Create the Node.js Server
+  2.1 Visualize the minimal [database](/docs/images/Websocket-Database.png)
+  
+  2.2 Pseudo Code for the Server instructions
+  
+  2.3 Create your database access on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+  
 
 
 
