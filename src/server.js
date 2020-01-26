@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import socket from "socket.io";
 import path from "path";
 
+import router from "./routes";
+
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -13,6 +15,9 @@ const io = socket(server);
 // NODE SEND THE FRONT-END
 const STATIC_DIR = path.join(__dirname, "../", "client", "build");
 app.use(express.static(STATIC_DIR));
+
+// Node Router
+app.use(router);
 
 // Start the NODE SERVER
 server.listen(PORT, () => {
