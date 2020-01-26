@@ -51,6 +51,8 @@ The project is separated in two parts :
 
 2.4 Create your database access on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
+2.5 Regiter a new application at [Github](https://github.com/settings/applications/new)
+
 ## Cheatsheet / Documents
 
 - [Emit Socket.io](https://socket.io/docs/emit-cheatsheet/)
