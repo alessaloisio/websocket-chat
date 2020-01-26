@@ -4,7 +4,7 @@ Create an online chat with websocket and react
 
 ## Prerequisite
 
-- Knowledge of Javascript and React.Js
+- Knowledge of Javascript/React.Js & MongoDb
 - Node.Js & npm/yarn on your computer
 
 ## Tree structure
@@ -12,6 +12,7 @@ Create an online chat with websocket and react
 The project is separated in two parts :
 
 - ROOT DIRECTORY
+
   - src/
 
     - server.js => is the entrypoint of the project (server)
@@ -31,7 +32,7 @@ The project is separated in two parts :
 
 (For the auto build in development mode, you have just to tap this command already twice : '_npm run wacth_')
 
-# Tutorial
+# Step-by-step
 
 ## 1. Create the user interface
 
