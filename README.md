@@ -42,11 +42,14 @@ The project is separated in two parts :
 
 ## 2. Create the Node.js Server
 
-2.1 Visualize the minimal [database](/docs/images/Websocket-Database.png)
+2.1 Features and Interactions we want for this online chat
+![Result](/docs/images/screenshot1.png)
 
-2.2 Pseudo Code for the Server instructions
+2.2 Visualize the minimal [database](/docs/images/Websocket-Database.png)
 
-2.3 Create your database access on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2.3 Pseudo Code for the Server instructions
+
+2.4 Create your database access on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 ## Cheatsheet / Documents
 
