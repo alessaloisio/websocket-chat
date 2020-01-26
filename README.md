@@ -26,8 +26,9 @@ so '*npm install*' on **ROOT DIRECTORY** AND on **client**
 (For the auto build in development mode, you have just to tap this command already twice : '*npm run wacth*')
 
 # Tutorial
-## 1. Create the user interface for the chat
+## 1. Create the user interface
   1.1 Create React Containers and Components for the chat app
+  ![Result](/docs/images/screenshot0.png)
 
 ## 2. Create the Node.js Server
   2.1 Visualize the minimal [database](/docs/images/Websocket-Database.png)
