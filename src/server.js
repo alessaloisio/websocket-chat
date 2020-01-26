@@ -21,3 +21,5 @@ io.on("connection", client => {
   console.log(`Client ${client.id} connected`);
   client.on("disconnect", () => console.log("Client disconnected"));
 });
+
+console.log(process.env);
