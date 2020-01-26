@@ -2,7 +2,7 @@
 Create an online chat with websocket and react
 
 ## Prerequisite
-* Knowledge of Javascript and React.Js
+* Knowledge of Javascript/React.Js & MongoDb
 * Node.Js & npm/yarn on your computer
 
 ## Tree structure
