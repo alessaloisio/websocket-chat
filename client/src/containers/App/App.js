@@ -2,6 +2,7 @@ import React from "react";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+import Login from "../Login/Login";
 import Header from "../../components/header/header";
 import Chat from "../Chat/Chat";
 
@@ -12,15 +13,14 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-
         <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/">
             <Header />
             <Chat />
           </Route>
-          <Route path="/login"></Route>
         </Switch>
       </div>
     </Router>
