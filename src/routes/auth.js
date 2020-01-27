@@ -3,6 +3,52 @@ import axios from "axios";
 
 const router = new Router();
 
+/**
+ * Authorize requestCode from Github Application Callback
+ */
+router.get("/authorize", async (req, res) => {
+  const requestCode = req.query.code;
+  const clientID = process.env.GITHUB_CLIENT_ID;
+  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+
+  // Get user Github access_token
+  axios({
+    method: "post",
+    url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestCode}`,
+    headers: {
+      accept: "application/json"
+    }
+  })
+    .then(async response => {
+      const access_token = response.data.access_token;
+      await addUserInfoToDatabase(access_token);
+      res.redirect(`/validate?access_token=${access_token}`);
+    })
+    .catch(response =>
+      // Catch error from first axios request or from addUserToDatabase
+      res.status(401).json({
+        message: response.data
+          ? response.data.error_description
+          : response.message
+      })
+    );
+});
+
+/**
+ * Validate access_token and get User Information
+ */
+router.get("/validate", async (req, res) => {
+  const accessToken = req.query.access_token;
+
+  getGithubUserInfo(accessToken)
+    .then(data => res.json(data))
+    .catch(error => res.status(401).json(error));
+});
+
+/**
+ *  Get Github user information
+ * @param {string} accessToken Access token recovered from authorize route
+ */
 const getGithubUserInfo = accessToken => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -24,44 +70,30 @@ const getGithubUserInfo = accessToken => {
 };
 
 /**
- * Authorize requestCode from Github Application Callback
+ *  Save / Update Github user information on database
+ * @param {string} accessToken Access token recovered from authorize route
  */
-router.get("/authorize", async (req, res) => {
-  const requestCode = req.query.code;
-  const clientID = process.env.GITHUB_CLIENT_ID;
-  const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+const addUserInfoToDatabase = accessToken => {
+  return new Promise(async (resolve, reject) => {
+    getGithubUserInfo(accessToken)
+      .then(data => {
+        //save | update user on database
 
-  // Get user Github access_token
-  axios({
-    method: "post",
-    url: `https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestCode}`,
-    headers: {
-      accept: "application/json"
-    }
-  })
-    .then(response =>
-      res.redirect(`/validate?access_token=${response.data.access_token}`)
-    )
-    .catch(response =>
-      res.status(401).json({
-        message: response.data.error_description
+        /**
+         * login
+         * id
+         * avatar_url
+         * html_url
+         * name
+         * blog
+         * email
+         * bio
+         */
+
+        resolve(true);
       })
-    );
-});
-
-/**
- * Validate access_token and get User Information
- */
-router.get("/validate", async (req, res) => {
-  const accessToken = req.query.access_token;
-
-  getGithubUserInfo(accessToken)
-    .then(data => {
-      res.json(data);
-    })
-    .catch(error => {
-      res.status(401).json(error);
-    });
-});
+      .catch(error => reject(error));
+  });
+};
 
 export default router;
