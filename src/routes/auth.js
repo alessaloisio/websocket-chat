@@ -1,6 +1,8 @@
 import { Router } from "express";
 import axios from "axios";
 
+import User from "../models/user";
+
 const router = new Router();
 
 /**
@@ -76,21 +78,28 @@ const getGithubUserInfo = accessToken => {
 const addUserInfoToDatabase = accessToken => {
   return new Promise(async (resolve, reject) => {
     getGithubUserInfo(accessToken)
-      .then(data => {
+      .then(async response => {
+        const { data } = response;
+
+        const user = new User();
+
+        user._id = data.id;
+        user.email = data.email;
+        user.login = data.login;
+
+        user.info = {};
+        user.info.avatar = data.avatar_url;
+        user.info.name = data.name;
+        user.info.bio = data.bio;
+
+        if (data.blog.length > 0) {
+          user.info.links = { blog: data.blog };
+        }
+
         //save | update user on database
-
-        /**
-         * login
-         * id
-         * avatar_url
-         * html_url
-         * name
-         * blog
-         * email
-         * bio
-         */
-
-        resolve(true);
+        User.updateOne({ _id: data.id }, user, { upsert: true })
+          .then(() => resolve(true))
+          .catch(() => resolve(true));
       })
       .catch(error => reject(error));
   });
