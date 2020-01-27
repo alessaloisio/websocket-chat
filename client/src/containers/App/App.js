@@ -1,5 +1,7 @@
 import React from "react";
 
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import Header from "../../components/header/header";
 import Chat from "../Chat/Chat";
 
@@ -8,11 +10,20 @@ import "./App.scss";
 
 const App = () => {
   return (
-    <div className="App">
-      <Header />
+    <Router>
+      <div className="App">
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
 
-      <Chat />
-    </div>
+        <Switch>
+          <Route path="/">
+            <Header />
+            <Chat />
+          </Route>
+          <Route path="/login"></Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
