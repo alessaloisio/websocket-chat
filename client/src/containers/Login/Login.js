@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import getQueries from "../../helpers/getQueries";
-import { fetchUserComplete } from "../../redux/actions";
+import { fetchUserComplete } from "../../redux/actions/user";
 
 import "./Login.scss";
 
@@ -11,7 +11,10 @@ const Login = props => {
   const queries = getQueries(window.location.search);
 
   if (queries.access_token) {
-    localStorage.setItem("access_token", queries.access_token);
+    const expires = new Date();
+    document.cookie = `access_token=${
+      queries.access_token
+    }; expires=${expires.setDate(expires.getDate() + 730)}; path=/`;
 
     // TODO : store user to state
     props.dispatch(fetchUserComplete({ username: "alessio" }));

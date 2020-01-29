@@ -8,6 +8,8 @@ import store from "./redux/store";
 
 import * as serviceWorker from "./serviceWorker";
 
+import "./helpers/window";
+
 import "./scss/index.scss";
 
 ReactDOM.render(

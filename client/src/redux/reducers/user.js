@@ -1,21 +1,38 @@
-import { GET_USER, RESET_USER } from "../actionTypes";
+import {
+  FETCH_USER_BEGIN,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE
+} from "../actions/user";
 
 const initialState = {
-  user: null
+  user: null,
+  loading: false,
+  error: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_USER: {
+    case FETCH_USER_BEGIN: {
       return {
         ...state,
+        loading: true,
+        error: null
+      };
+    }
+
+    case FETCH_USER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
         user: action.payload
       };
     }
 
-    case RESET_USER: {
+    case FETCH_USER_FAILURE: {
       return {
         ...state,
+        loading: false,
+        error: action.payload,
         user: null
       };
     }

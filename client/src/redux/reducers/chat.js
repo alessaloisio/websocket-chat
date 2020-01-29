@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "../actionTypes";
+import { ADD_MESSAGE } from "../actions/message";
 
 const initialState = {};
 

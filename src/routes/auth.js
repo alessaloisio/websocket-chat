@@ -42,11 +42,22 @@ router.get("/authorize", async (req, res) => {
  * Validate access_token and get User Information
  */
 router.get("/validate", async (req, res) => {
-  const accessToken = req.query.access_token;
+  const accessToken = req.query.access_token || false;
+  const github = req.query.info || false;
 
-  getGithubUserInfo(accessToken)
-    .then(data => res.json(data))
-    .catch(error => res.status(401).json(error));
+  if (accessToken)
+    getGithubUserInfo(accessToken)
+      .then(async response => {
+        if (github) res.json(response);
+        else {
+          // get user info from db
+          const user = await User.findById(response.data.id);
+          res.json({
+            data: user
+          });
+        }
+      })
+      .catch(error => res.status(401).json(error));
 });
 
 /**
