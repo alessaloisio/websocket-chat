@@ -24,7 +24,9 @@ router.get("/authorize", async (req, res) => {
     .then(async response => {
       const access_token = response.data.access_token;
       await addUserInfoToDatabase(access_token);
-      res.redirect(`/validate?access_token=${access_token}`);
+
+      // TODO : change to a react link => save access_token to localStorage
+      res.redirect(`/login?access_token=${access_token}`);
     })
     .catch(response =>
       // Catch error from first axios request or from addUserToDatabase

@@ -1,8 +1,9 @@
 import React from "react";
-
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import getQueries from "../../helpers/getQueries";
+import { fetchUserComplete } from "../../redux/actions";
 
 import "./Login.scss";
 
@@ -11,6 +12,10 @@ const Login = props => {
 
   if (queries.access_token) {
     localStorage.setItem("access_token", queries.access_token);
+
+    // TODO : store user to state
+    props.dispatch(fetchUserComplete({ username: "alessio" }));
+
     return <Redirect to="/" />;
   }
 
@@ -24,4 +29,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default connect()(Login);
