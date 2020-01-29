@@ -1,5 +1,5 @@
 import React from "react";
-
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Login from "../Login/Login";
@@ -9,7 +9,9 @@ import Chat from "../Chat/Chat";
 import "../../assets/icons/flaticon.css";
 import "./App.scss";
 
-const App = () => {
+const App = props => {
+  console.log(props);
+
   return (
     <Router>
       <div className="App">
@@ -27,4 +29,6 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(state => ({
+  user: state.app.user
+}))(App);

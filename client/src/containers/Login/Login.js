@@ -17,7 +17,7 @@ const Login = props => {
     }; expires=${expires.setDate(expires.getDate() + 730)}; path=/`;
 
     // TODO : store user to state
-    props.dispatch(fetchUserComplete({ username: "alessio" }));
+    props.dispatch(fetchUserComplete());
 
     return <Redirect to="/" />;
   }
