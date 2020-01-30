@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { PrivateRoute, PublicRoute } from "../../helpers/routeMiddleware";
 import { fetchUserComplete } from "../../redux/actions/user";
 
 import Login from "../Login/Login";
@@ -12,23 +13,24 @@ import "../../assets/icons/flaticon.css";
 import "./App.scss";
 
 const App = props => {
-  // TODO : verify cookie
+  // Page reload auto connect the user
   const access_token = window.getCookie("access_token");
   if (access_token && !props.user) {
     props.dispatch(fetchUserComplete());
+    return <></>;
   }
 
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/login">
+          <PublicRoute path="/login">
             <Login />
-          </Route>
-          <Route path="/">
+          </PublicRoute>
+          <PrivateRoute path="/">
             <Header />
             <Chat />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </div>
     </Router>
