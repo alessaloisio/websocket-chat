@@ -25,7 +25,6 @@ router.get("/authorize", async (req, res) => {
       const access_token = response.data.access_token;
       await addUserInfoToDatabase(access_token);
 
-      // TODO : change to a react link => save access_token to localStorage
       res.redirect(`/login?access_token=${access_token}`);
     })
     .catch(response =>

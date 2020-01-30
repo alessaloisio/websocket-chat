@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import List from "./chat-widget-list";
 
@@ -9,7 +10,7 @@ const list = [
   { username: "Serge", avatar: "https://i.pravatar.cc/32", unread: 2 }
 ];
 
-export default () => {
+const Sidebar = ({ user }) => {
   return (
     <div className="Chat-Sidebar">
       {/* User status */}
@@ -18,8 +19,8 @@ export default () => {
           <span className="active"></span>
         </div>
         <div className="info">
-          <p className="name">Alessandro Aloisio</p>
-          <p className="description">FullStack Web Developer</p>
+          <p className="name">{user.info.name}</p>
+          <p className="description">{user.info.bio}</p>
         </div>
       </div>
       {/* Search */}
@@ -37,3 +38,7 @@ export default () => {
     </div>
   );
 };
+
+export default connect(state => ({
+  user: state.app.user
+}))(Sidebar);

@@ -16,7 +16,7 @@ const Header = props => {
       <div className="Profil">
         <i className="Notification flaticon-notification"></i>
         <span className="Avatar">
-          <img src="https://i.pravatar.cc/64" alt="User avatar" />
+          <img src={props.user.info.avatar} alt="User avatar" />
         </span>
         <i className="Arrow flaticon-down-arrow"></i>
 
