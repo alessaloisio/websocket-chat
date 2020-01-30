@@ -38,7 +38,12 @@ export function fetchUserComplete() {
 
     dispatch(fetchUserBegin());
 
-    return fetch(`/validate?access_token=${access_token}`)
+    return fetch(`/validate`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${access_token}`
+      })
+    })
       .then(res => {
         if (!res.ok) throw new Error(res.statusText);
         return res.json();
