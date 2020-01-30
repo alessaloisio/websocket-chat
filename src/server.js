@@ -23,6 +23,7 @@ app.use(router);
 server.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 
+  // Start the MongoDb SERVER
   mongoose
     .connect(process.env.MONGO_URI, {
       useCreateIndex: true,

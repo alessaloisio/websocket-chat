@@ -7,6 +7,11 @@ export default props => {
     <li>
       <span className="avatar">
         <img src={element.avatar} alt="User avatar" />
+        {element.status && (
+          <div className="status">
+            <span className={element.status}></span>
+          </div>
+        )}
       </span>
       <span className="name">{element.username}</span>
       <span className="unread">

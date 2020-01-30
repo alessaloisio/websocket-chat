@@ -6,8 +6,24 @@ import List from "./chat-widget-list";
 import "./chat-sidebar.scss";
 
 const list = [
-  { username: "Alessio", avatar: "https://i.pravatar.cc/32", unread: 4 },
-  { username: "Serge", avatar: "https://i.pravatar.cc/32", unread: 2 }
+  {
+    username: "Alessio",
+    avatar: "https://i.pravatar.cc/32",
+    status: "online",
+    unread: 4
+  },
+  {
+    username: "Serge",
+    avatar: "https://i.pravatar.cc/32",
+    status: "offline",
+    unread: 2
+  },
+  {
+    username: "Alicia",
+    avatar: "https://i.pravatar.cc/32",
+    status: "busy",
+    unread: 2
+  }
 ];
 
 const Sidebar = ({ user }) => {
