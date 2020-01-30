@@ -1,7 +1,8 @@
 import {
   FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE
+  FETCH_USER_FAILURE,
+  USER_LOGOUT
 } from "../actions/user";
 
 const initialState = {
@@ -33,6 +34,13 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload,
+        user: null
+      };
+    }
+
+    case USER_LOGOUT: {
+      return {
+        ...state,
         user: null
       };
     }

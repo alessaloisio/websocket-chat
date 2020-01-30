@@ -1,8 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { userLogoutComplete } from "../../redux/actions/user";
 
 import "./header.scss";
 
-export default function header() {
+const Header = props => {
+  const handleLogout = () => {
+    props.dispatch(userLogoutComplete());
+  };
+
   return (
     <div className="Header">
       <span className="Logo">Online Chat</span>
@@ -12,7 +19,15 @@ export default function header() {
           <img src="https://i.pravatar.cc/64" alt="User avatar" />
         </span>
         <i className="Arrow flaticon-down-arrow"></i>
+
+        <p className="btn" onClick={handleLogout}>
+          Logout
+        </p>
       </div>
     </div>
   );
-}
+};
+
+export default connect(state => ({
+  user: state.app.user
+}))(Header);

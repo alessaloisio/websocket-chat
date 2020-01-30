@@ -1,7 +1,15 @@
+/**
+ * ACTION TYPES
+ */
 export const FETCH_USER_BEGIN = "FETCH_USER_BEGIN";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 
+export const USER_LOGOUT = "USER_LOGOUT";
+
+/**
+ * ACTION CREATOR
+ */
 export const fetchUserBegin = () => ({
   type: FETCH_USER_BEGIN
 });
@@ -16,6 +24,13 @@ export const fetchUserFailure = error => ({
   payload: error
 });
 
+export const userLogout = () => ({
+  type: USER_LOGOUT
+});
+
+/**
+ * ACTION
+ */
 export function fetchUserComplete() {
   return dispatch => {
     const access_token = window.getCookie("access_token");
@@ -34,5 +49,12 @@ export function fetchUserComplete() {
       .catch(error => {
         dispatch(fetchUserFailure(error.message));
       });
+  };
+}
+
+export function userLogoutComplete() {
+  return dispatch => {
+    window.deleteCookie("access_token");
+    dispatch(userLogout());
   };
 }
