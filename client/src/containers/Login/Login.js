@@ -7,6 +7,8 @@ import { fetchUserComplete } from "../../redux/actions/user";
 
 import "./Login.scss";
 
+import imageLogin from "../../assets/images/login.svg";
+
 const Login = props => {
   const queries = getQueries(window.location.search);
 
@@ -24,7 +26,8 @@ const Login = props => {
 
   return (
     <div className="Login">
-      <h1>Login</h1>
+      <img src={imageLogin} alt="Login" />
+      <h1>Welcome to Online Chat</h1>
       <a href="https://github.com/login/oauth/authorize?client_id=3ab9455d01b047c53a43">
         Login with Github
       </a>
