@@ -6,7 +6,7 @@ import {
 } from "../actions/user";
 
 const initialState = {
-  user: null,
+  data: null,
   loading: false,
   error: null
 };
@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        user: action.payload
+        data: action.payload
       };
     }
 
@@ -34,7 +34,7 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload,
-        user: null
+        data: null
       };
     }
 

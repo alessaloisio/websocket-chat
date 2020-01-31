@@ -16,6 +16,12 @@ const io = socket(server);
 const STATIC_DIR = path.join(__dirname, "../", "client", "build");
 app.use(express.static(STATIC_DIR));
 
+// Make io accessible to our router
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
 // Node Router
 app.use(router);
 
@@ -32,10 +38,4 @@ server.listen(PORT, () => {
     })
     .then(() => console.info("Connected to MongoDB"))
     .catch(err => console.error(err));
-});
-
-// Handler where a client are connected
-io.on("connection", client => {
-  console.log(`Client ${client.id} connected`);
-  client.on("disconnect", () => console.log("Client disconnected"));
 });

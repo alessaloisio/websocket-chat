@@ -41,5 +41,5 @@ const Sidebar = ({ user }) => {
 };
 
 export default connect(state => ({
-  user: state.app.user
+  user: state.user.data
 }))(Sidebar);

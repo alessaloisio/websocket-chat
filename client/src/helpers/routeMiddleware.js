@@ -27,9 +27,9 @@ const Public = ({ restricted = true, ...props }) => {
  * Connect routes to the Redux Store
  */
 export const PrivateRoute = connect(state => ({
-  user: state.app.user
+  user: state.user.data
 }))(Private);
 
 export const PublicRoute = connect(state => ({
-  user: state.app.user
+  user: state.user.data
 }))(Public);

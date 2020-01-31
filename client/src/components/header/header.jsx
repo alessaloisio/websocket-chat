@@ -31,5 +31,5 @@ const Header = props => {
 };
 
 export default connect(state => ({
-  user: state.app.user
+  user: state.user.data
 }))(Header);
