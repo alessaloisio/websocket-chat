@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { PrivateRoute, PublicRoute } from "../../helpers/routeMiddleware";
 import { fetchUserComplete } from "../../redux/actions/user";
+import { socketConnectComplete } from "../../redux/actions/socket";
 
 import Login from "../Login/Login";
 import Header from "../../components/header/header";
@@ -21,12 +22,15 @@ const App = props => {
     return <></>;
   }
 
-  // Automatically add Authorization to Axios Request
   if (props.user) {
+    // Automatically add Authorization to Axios Request
     axios.interceptors.request.use(config => {
       config.headers.Authorization = access_token;
       return config;
     });
+
+    // Create the connection to the socket.io
+    props.dispatch(socketConnectComplete());
   }
 
   return (

@@ -17,8 +17,12 @@ export default () => {
     setUsers(users.data.data || []);
 
     // Search Groups
-    const groups = await axios.get(`/users/search/${value}`); // TODO: EDIT URL
+    const groups = await axios.get(`/groups/search/${value}`);
     setGroups(groups.data.data || []);
+  };
+
+  const handleElement = async () => {
+    console.log("click");
   };
 
   const autocomplete = () => {
@@ -36,7 +40,7 @@ export default () => {
                 <span className="title">{key}</span>
                 <ul className={key}>
                   {data[key].map(element => (
-                    <li key={element.id}>
+                    <li key={element.id} onClick={handleElement}>
                       <img src={element.info.avatar} alt="Avatar" />
                       <p>{element.info.name}</p>
                     </li>

@@ -2,11 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { userLogoutComplete } from "../../redux/actions/user";
+import { socketDisconnect } from "../../redux/actions/socket";
 
 import "./header.scss";
 
 const Header = props => {
   const handleLogout = () => {
+    props.dispatch(socketDisconnect());
     props.dispatch(userLogoutComplete());
   };
 
