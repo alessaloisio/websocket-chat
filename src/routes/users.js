@@ -8,6 +8,9 @@ router.use("/search/:name", async (req, res) => {
   const name = req.params.name || "";
 
   const user = await User.find({
+    _id: {
+      $ne: req.user.id
+    },
     "info.name": {
       $regex: `.*${name}.*`,
       $options: "i"
