@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
+import WidgetSearch from "./Widget-Search";
 import List from "./chat-widget-list";
 
 import "./chat-sidebar.scss";
@@ -39,18 +40,14 @@ const Sidebar = ({ user }) => {
           <p className="description">{user.info.bio}</p>
         </div>
       </div>
-      {/* Search */}
-      <div className="Widget-Search">
-        <input type="text" placeholder="Search" />
-        <button>
-          <i className="flaticon-loupe"></i>
-        </button>
-      </div>
+
+      <WidgetSearch />
+
       <List name="Favorites" list={list} />
       {/* Groupes */}
       <List name="Groupes" list={list} />
       {/* Users */}
-      <List name="Friends" list={list} />
+      <List name="Peoples" list={list} />
     </div>
   );
 };

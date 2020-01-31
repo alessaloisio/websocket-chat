@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import axios from "axios";
 
 import { PrivateRoute, PublicRoute } from "../../helpers/routeMiddleware";
 import { fetchUserComplete } from "../../redux/actions/user";
@@ -20,6 +21,14 @@ const App = props => {
     return <></>;
   }
 
+  // Automatically add Authorization to Axios Request
+  if (props.user) {
+    axios.interceptors.request.use(config => {
+      config.headers.Authorization = access_token;
+      return config;
+    });
+  }
+
   return (
     <Router>
       <div className="App">
@@ -37,6 +46,7 @@ const App = props => {
   );
 };
 
+// Add state from store to App props
 export default connect(state => ({
   user: state.app.user
 }))(App);
