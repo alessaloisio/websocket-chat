@@ -32,8 +32,8 @@ export function selectRoomComplete(id) {
     dispatch(selectRoomBegin());
 
     const str = id.split("-");
-    console.log(str);
+
     const room = await axios.get(`/rooms/${str[0]}/${str[1]}`);
-    // console.log(room);
+    console.log(room);
   };
 }

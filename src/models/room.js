@@ -4,7 +4,8 @@ import { Message } from "./message";
 
 const Room = new Schema(
   {
-    users: [Number],
+    _id: { type: String },
+    users: { type: [Number], required: true },
     messages: [Message]
   },
   { timestamps: true }
