@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import "./chat-content.scss";
 
-export default () => {
+const ChatContent = props => {
+  console.log(props);
   return (
     <div className="Chat-Content">
       <div className="Widget-Conversation">
@@ -96,3 +98,7 @@ export default () => {
     </div>
   );
 };
+
+export default connect(state => ({
+  room: state.room.data
+}))(ChatContent);

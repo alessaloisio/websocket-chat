@@ -1,9 +1,8 @@
 import {
-  FETCH_USER_BEGIN,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
-  USER_LOGOUT
-} from "../actions/user";
+  SELECT_ROOM_BEGIN,
+  SELECT_ROOM_FAILURE,
+  SELECT_ROOM_SUCCESS
+} from "../actions/room";
 
 const initialState = {
   data: null,
@@ -13,7 +12,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_USER_BEGIN: {
+    case SELECT_ROOM_BEGIN: {
       return {
         ...state,
         loading: true,
@@ -21,7 +20,7 @@ export default function(state = initialState, action) {
       };
     }
 
-    case FETCH_USER_SUCCESS: {
+    case SELECT_ROOM_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -29,18 +28,11 @@ export default function(state = initialState, action) {
       };
     }
 
-    case FETCH_USER_FAILURE: {
+    case SELECT_ROOM_FAILURE: {
       return {
         ...state,
         loading: false,
         error: action.payload,
-        data: null
-      };
-    }
-
-    case USER_LOGOUT: {
-      return {
-        ...state,
         data: null
       };
     }

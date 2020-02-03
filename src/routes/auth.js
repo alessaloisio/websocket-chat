@@ -2,7 +2,7 @@ import { Router } from "express";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 
-import auth from "../libs/authenticated";
+import auth from "../middlewares/authenticated";
 import User from "../models/user";
 
 const router = new Router();

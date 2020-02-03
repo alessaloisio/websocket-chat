@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { join } from "path";
 
-import authenticated from "../libs/authenticated";
+import authenticated from "../middlewares/authenticated";
 
 import Auth from "./auth";
 import Users from "./users";
@@ -10,7 +10,10 @@ import Messages from "./messages";
 
 const router = new Router();
 
+// PUBLIC ROUTE
 router.use("/", Auth);
+
+// PRIVATE ROUTE
 router.use("/users", authenticated, Users);
 router.use("/rooms", authenticated, Rooms);
 router.use("/messages", authenticated, Messages);

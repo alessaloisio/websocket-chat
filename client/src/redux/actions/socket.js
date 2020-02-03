@@ -23,6 +23,16 @@ export const socketDisconnect = () => ({
  */
 export function socketConnectComplete() {
   return dispatch => {
-    dispatch(socketConnect(io()));
+    const socket = io("http://127.0.0.1:3000", {
+      query: { token: window.getCookie("access_token") }
+    });
+
+    socket.on("connect", () => {
+      if (socket.connected) {
+        dispatch(socketConnect(socket));
+      }
+    });
+
+    socket.open();
   };
 }

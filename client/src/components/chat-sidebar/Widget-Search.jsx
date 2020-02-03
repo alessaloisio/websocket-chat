@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-
+import { connect } from "react-redux";
 import axios from "axios";
 
-export default () => {
+import { selectRoomComplete } from "../../redux/actions/room";
+
+const WidgetSearch = props => {
   const [searchInput, setSearchInput] = useState("");
 
   const [users, setUsers] = useState([]);
@@ -21,8 +23,8 @@ export default () => {
     setGroups(groups.data.data || []);
   };
 
-  const handleElement = async () => {
-    console.log("click");
+  const handleElement = async id => {
+    props.dispatch(selectRoomComplete(id));
   };
 
   const autocomplete = () => {
@@ -40,7 +42,10 @@ export default () => {
                 <span className="title">{key}</span>
                 <ul className={key}>
                   {data[key].map(element => (
-                    <li key={element.id} onClick={handleElement}>
+                    <li
+                      key={element._id}
+                      onClick={() => handleElement(`${key}-${element._id}`)}
+                    >
                       <img src={element.info.avatar} alt="Avatar" />
                       <p>{element.info.name}</p>
                     </li>
@@ -72,3 +77,5 @@ export default () => {
     </div>
   );
 };
+
+export default connect()(WidgetSearch);

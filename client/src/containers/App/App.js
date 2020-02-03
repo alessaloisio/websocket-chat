@@ -1,11 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 
-import { PrivateRoute, PublicRoute } from "../../helpers/routeMiddleware";
-import { fetchUserComplete } from "../../redux/actions/user";
-import { socketConnectComplete } from "../../redux/actions/socket";
+import authPreload from "../../libs/authPreload";
+import { PrivateRoute, PublicRoute } from "../../libs/routeMiddleware";
 
 import Login from "../Login/Login";
 import Header from "../../components/header/header";
@@ -15,22 +13,11 @@ import "../../assets/icons/flaticon.css";
 import "./App.scss";
 
 const App = props => {
-  // Page reload auto connect the user
-  const access_token = window.getCookie("access_token");
-  if (access_token && !props.user) {
-    props.dispatch(fetchUserComplete());
+  try {
+    authPreload(props);
+  } catch (_) {
+    // User auto connect => don't show anything
     return <></>;
-  }
-
-  if (props.user) {
-    // Automatically add Authorization to Axios Request
-    axios.interceptors.request.use(config => {
-      config.headers.Authorization = access_token;
-      return config;
-    });
-
-    // Create the connection to the socket.io
-    props.dispatch(socketConnectComplete());
   }
 
   return (
