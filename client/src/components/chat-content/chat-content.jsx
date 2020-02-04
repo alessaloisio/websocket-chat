@@ -8,8 +8,6 @@ import imageNoRoom from "../../assets/images/noRoom.svg";
 import "./chat-content.scss";
 
 const ChatContent = props => {
-  console.log(props);
-
   const contentShow = () => {
     if (props.room)
       return (

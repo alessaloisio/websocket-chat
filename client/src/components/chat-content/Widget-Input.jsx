@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
+import { sendMessageComplete } from "../../redux/actions/message";
+
 const WidgetInput = props => {
+  const [input, setInput] = useState("");
+
+  // TODO: get input from localStorage
+
+  const handleInput = e => {
+    setInput(e);
+    // TODO: save on localStorage
+  };
+
+  const handleSend = () => {
+    // Action send
+    const data = {};
+    data.content = input;
+    data.room = props.room._id;
+    props.dispatch(sendMessageComplete(data));
+  };
+
   return (
     <div className="Widget-Input">
       <div className="emoji">
@@ -11,10 +30,13 @@ const WidgetInput = props => {
         className="input-message"
         rows="1"
         placeholder="Type a message"
-      ></textarea>
+        onChange={e => handleInput(e.target.value)}
+      >
+        {input}
+      </textarea>
       <div className="input-options">
         <i className="attach flaticon-attach"></i>
-        <i className="send flaticon-paper-plane"></i>
+        <i className="send flaticon-paper-plane" onClick={handleSend}></i>
       </div>
     </div>
   );

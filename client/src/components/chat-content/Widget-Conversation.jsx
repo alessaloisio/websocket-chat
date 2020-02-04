@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import ConversationList from "./Conversation-List";
+
 const WidgetConversation = props => {
+  const { room } = props;
+  const users = room.users_info;
+
   return (
     <div className="Widget-Conversation">
       {/* Conversation Options (filters, favourites, manage) */}
@@ -26,15 +31,19 @@ const WidgetConversation = props => {
 
       {/* Conversation Informations (speakers, owner, name, description) */}
       <div className="conversation-informations">
-        <p className="name">Serge Bayet</p>
-        <p className="description">FullStack Web Developer</p>
+        <p className="name">{users[0].info.name}</p>
+        <p className="description">{users[0].info.bio}</p>
       </div>
 
       {/* Lists messages + Lists files uploaded */}
       <div className="conversation-content">
         <div className="messages">
           <ul>
-            <li className="msg">
+            {room.messages.map(msg => (
+              <ConversationList message={msg} />
+            ))}
+
+            {/* <li className="msg">
               <div className="avatar">
                 <img src="https://i.pravatar.cc/64" alt="" />
               </div>
@@ -57,22 +66,25 @@ const WidgetConversation = props => {
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 </p>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
-        <div className="files">
-          <ul>
-            <li>
-              <img src="https://picsum.photos/200" alt="" />
-            </li>
-            <li>
-              <img src="https://picsum.photos/200" alt="" />
-            </li>
-            <li>
-              <img src="https://picsum.photos/200" alt="" />
-            </li>
-          </ul>
-        </div>
+
+        {room.files.length > 0 && (
+          <div className="files">
+            <ul>
+              <li>
+                <img src="https://picsum.photos/200" alt="" />
+              </li>
+              <li>
+                <img src="https://picsum.photos/200" alt="" />
+              </li>
+              <li>
+                <img src="https://picsum.photos/200" alt="" />
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -134,6 +134,8 @@
 
             &.mine {
               align-self: flex-end;
+              display: flex;
+              justify-content: flex-end;
 
               .wrapper {
                 background-color: #f5f5fb;

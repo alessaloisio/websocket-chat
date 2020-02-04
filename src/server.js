@@ -1,5 +1,6 @@
 import http from "http";
 import express from "express";
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import socket from "socket.io";
 import path from "path";
@@ -10,6 +11,9 @@ import socketManager from "./socket";
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true })).use(bodyParser.json());
+
 const server = http.Server(app);
 const io = socket(server, {
   pingInterval: 10000,
