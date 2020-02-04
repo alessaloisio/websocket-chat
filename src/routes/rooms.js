@@ -8,7 +8,6 @@ router.get("/users/:id", async (req, res) => {
   const dest = parseInt(req.params.id) || null;
 
   const roomId = dest * req.user.id;
-  // console.log(roomId);
 
   Room.findById(roomId).then(async data => {
     if (!data) {

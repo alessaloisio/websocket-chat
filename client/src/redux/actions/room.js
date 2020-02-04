@@ -33,7 +33,14 @@ export function selectRoomComplete(id) {
 
     const str = id.split("-");
 
-    const room = await axios.get(`/rooms/${str[0]}/${str[1]}`);
-    console.log(room);
+    axios
+      .get(`/rooms/${str[0]}/${str[1]}`)
+      .then(res => {
+        if (res.status !== 200) throw new Error(res.statusText);
+        dispatch(selectRoomSuccess(res.data.data));
+      })
+      .catch(error => {
+        dispatch(selectRoomFailure(error.message));
+      });
   };
 }
