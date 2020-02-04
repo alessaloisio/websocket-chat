@@ -7,6 +7,8 @@ export const SELECT_ROOM_BEGIN = "SELECT_ROOM_BEGIN";
 export const SELECT_ROOM_SUCCESS = "SELECT_ROOM_SUCCESS";
 export const SELECT_ROOM_FAILURE = "SELECT_ROOM_FAILURE";
 
+export const ADD_MESSAGE = "ADD_MESSAGE";
+
 /**
  * ACTION CREATOR
  */
@@ -22,6 +24,11 @@ export const selectRoomSuccess = room => ({
 export const selectRoomFailure = error => ({
   type: SELECT_ROOM_FAILURE,
   payload: error
+});
+
+export const addMessage = message => ({
+  type: ADD_MESSAGE,
+  payload: message
 });
 
 /**

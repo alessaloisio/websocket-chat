@@ -12,7 +12,14 @@ router.post("/", async (req, res) => {
   message.owner = req.user.id;
   message.content = content;
 
-  await Room.updateOne({ _id: room }, { $push: { messages: message } });
+  const response = await Room.updateOne(
+    { _id: room },
+    { $push: { messages: message } }
+  );
+
+  res.json({
+    data: response ? message : null
+  });
 });
 
 export default router;

@@ -19,6 +19,7 @@ const WidgetInput = props => {
     data.content = input;
     data.room = props.room._id;
     props.dispatch(sendMessageComplete(data));
+    setInput("");
   };
 
   return (
@@ -31,9 +32,8 @@ const WidgetInput = props => {
         rows="1"
         placeholder="Type a message"
         onChange={e => handleInput(e.target.value)}
-      >
-        {input}
-      </textarea>
+        value={input}
+      ></textarea>
       <div className="input-options">
         <i className="attach flaticon-attach"></i>
         <i className="send flaticon-paper-plane" onClick={handleSend}></i>

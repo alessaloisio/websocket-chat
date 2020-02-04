@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { addMessage } from "./room";
+
 /**
  * ACTION TYPES
  */
@@ -31,8 +33,10 @@ export function sendMessageComplete(message) {
   return async dispatch => {
     dispatch(sendMessageBegin());
 
-    console.log(message);
+    const response = await axios.post(`/messages`, message);
 
-    console.log(await axios.post(`/messages`, message));
+    if (response.status === 200) {
+      dispatch(addMessage(response.data.data));
+    }
   };
 }

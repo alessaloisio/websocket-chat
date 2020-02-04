@@ -1,7 +1,8 @@
 import {
   SELECT_ROOM_BEGIN,
   SELECT_ROOM_FAILURE,
-  SELECT_ROOM_SUCCESS
+  SELECT_ROOM_SUCCESS,
+  ADD_MESSAGE
 } from "../actions/room";
 
 const initialState = {
@@ -34,6 +35,16 @@ export default function(state = initialState, action) {
         loading: false,
         error: action.payload,
         data: null
+      };
+    }
+
+    case ADD_MESSAGE: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          messages: [...state.data.messages, action.payload]
+        }
       };
     }
 
