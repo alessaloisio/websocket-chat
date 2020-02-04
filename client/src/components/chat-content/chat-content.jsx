@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+
+import { addMessage } from "../../redux/actions/room";
 
 import WidgetConversation from "./Widget-Conversation";
 import WidgetInput from "./Widget-Input";
@@ -8,8 +10,18 @@ import imageNoRoom from "../../assets/images/noRoom.svg";
 import "./chat-content.scss";
 
 const ChatContent = props => {
+  const { io, dispatch, room } = props;
+
+  useEffect(() => {
+    io &&
+      io.on("newMessage", data => {
+        console.log(data);
+        dispatch(addMessage(data));
+      });
+  }, [io]);
+
   const contentShow = () => {
-    if (props.room)
+    if (room)
       return (
         <>
           <WidgetConversation />
@@ -28,5 +40,6 @@ const ChatContent = props => {
 };
 
 export default connect(state => ({
-  room: state.room.data
+  room: state.room.data,
+  io: state.socket
 }))(ChatContent);

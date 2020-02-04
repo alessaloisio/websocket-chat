@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import ConversationList from "./Conversation-List";
 
 const WidgetConversation = props => {
-  const { room, io } = props;
+  const { room } = props;
   const users = room.users_info;
-
-  io.on("newMessage", data => {
-    console.log(data);
-  });
 
   return (
     <div className="Widget-Conversation">
@@ -70,6 +66,5 @@ const WidgetConversation = props => {
 };
 
 export default connect(state => ({
-  room: state.room.data,
-  io: state.socket
+  room: state.room.data
 }))(WidgetConversation);
