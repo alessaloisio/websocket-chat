@@ -14,11 +14,12 @@ const WidgetInput = props => {
   };
 
   const handleSend = () => {
-    // Action send
     const data = {};
     data.content = input;
     data.room = props.room._id;
+
     props.dispatch(sendMessageComplete(data));
+
     setInput("");
   };
 

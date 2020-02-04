@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import ConversationList from "./Conversation-List";
 
 const WidgetConversation = props => {
-  const { room } = props;
+  const { room, io } = props;
   const users = room.users_info;
+
+  io.on("newMessage", data => {
+    console.log(data);
+  });
 
   return (
     <div className="Widget-Conversation">
@@ -42,31 +46,6 @@ const WidgetConversation = props => {
             {room.messages.map(msg => (
               <ConversationList message={msg} />
             ))}
-
-            {/* <li className="msg">
-              <div className="avatar">
-                <img src="https://i.pravatar.cc/64" alt="" />
-              </div>
-              <div className="wrapper">
-                <div className="head">
-                  <p className="name">Serge</p>
-                  <p className="datetime">3 days ago</p>
-                </div>
-                <p className="message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-                  non magnam nostrum id earum itaque minima cumque distinctio
-                  iusto! Repudiandae, ullam corporis! Quibusdam impedit in
-                  deleniti nobis placeat sed? Blanditiis?
-                </p>
-              </div>
-            </li>
-            <li className="msg mine">
-              <div className="wrapper">
-                <p className="message">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </p>
-              </div>
-            </li> */}
           </ul>
         </div>
 
@@ -91,5 +70,6 @@ const WidgetConversation = props => {
 };
 
 export default connect(state => ({
-  room: state.room.data
+  room: state.room.data,
+  io: state.socket
 }))(WidgetConversation);
