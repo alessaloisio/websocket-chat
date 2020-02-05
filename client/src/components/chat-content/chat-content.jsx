@@ -13,12 +13,25 @@ const ChatContent = props => {
   const { io, dispatch, room } = props;
 
   useEffect(() => {
-    io &&
-      io.on("newMessage", data => {
-        console.log(data);
-        dispatch(addMessage(data));
+    // user are on the room, show the message
+    let event;
+    if (io && room) {
+      event = io.on("newMessage", data => {
+        if (data.room === room._id) dispatch(addMessage(data));
+        else {
+          console.log(data);
+          console.log(room);
+          console.log("TODO: send notification/ create un fn !");
+        }
       });
-  }, [io]);
+    }
+
+    // user are not on any room, send a notification
+
+    return () => {
+      if (event) event.removeListener();
+    };
+  }, [io, room]);
 
   const contentShow = () => {
     if (room)

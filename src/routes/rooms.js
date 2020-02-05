@@ -8,7 +8,6 @@ router.get("/users/:id", async (req, res) => {
   const dest = parseInt(req.params.id) || null;
 
   const roomId = dest * req.user.id;
-  // req.io.sockets.connected[req.user.id].join(roomId);
 
   const findRoom = await Room.findById(roomId);
   if (!findRoom) {

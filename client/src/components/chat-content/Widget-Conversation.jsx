@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import ConversationList from "./Conversation-List";
@@ -6,6 +6,15 @@ import ConversationList from "./Conversation-List";
 const WidgetConversation = props => {
   const { room } = props;
   const users = room.users_info;
+  const contentRef = useRef();
+
+  useEffect(() => {
+    const lastChild = contentRef.current.lastChild;
+    if (lastChild)
+      lastChild.scrollIntoView({
+        behavior: "smooth"
+      });
+  }, [room.messages]);
 
   return (
     <div className="Widget-Conversation">
@@ -38,7 +47,7 @@ const WidgetConversation = props => {
       {/* Lists messages + Lists files uploaded */}
       <div className="conversation-content">
         <div className="messages">
-          <ul>
+          <ul ref={contentRef}>
             {room.messages.map(msg => (
               <ConversationList message={msg} />
             ))}

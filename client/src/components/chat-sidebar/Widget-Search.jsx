@@ -25,6 +25,10 @@ const WidgetSearch = props => {
 
   const handleElement = async id => {
     props.dispatch(selectRoomComplete(id));
+
+    setSearchInput("");
+    setUsers([]);
+    setGroups([]);
   };
 
   const autocomplete = () => {

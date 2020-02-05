@@ -79,11 +79,11 @@
 
       .messages {
         padding: 2em;
-        flex-basis: 80%;
+        flex-basis: 100%;
+        overflow: auto;
 
         ul {
           display: flex;
-          height: 100%;
           flex-direction: column;
           justify-content: flex-end;
 
