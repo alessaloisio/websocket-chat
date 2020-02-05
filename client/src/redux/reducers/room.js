@@ -2,7 +2,9 @@ import {
   SELECT_ROOM_BEGIN,
   SELECT_ROOM_FAILURE,
   SELECT_ROOM_SUCCESS,
-  ADD_MESSAGE
+  ADD_MESSAGE,
+  ADD_FAVOURITE,
+  DELETE_FAVOURITE
 } from "../actions/room";
 
 const initialState = {
@@ -44,6 +46,26 @@ export default function(state = initialState, action) {
         data: {
           ...state.data,
           messages: [...state.data.messages, action.payload]
+        }
+      };
+    }
+
+    case ADD_FAVOURITE: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          favourite: true
+        }
+      };
+    }
+
+    case DELETE_FAVOURITE: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          favourite: false
         }
       };
     }

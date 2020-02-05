@@ -19,7 +19,7 @@ router.get("/users/:id", async (req, res) => {
     await room.save();
   }
 
-  // Lookup Everything for a specific room
+  // Get users_info of the room
   const response = await Room.aggregate([
     {
       $match: {
@@ -47,8 +47,14 @@ router.get("/users/:id", async (req, res) => {
     }
   ]);
 
+  // Verify if user put the room on favourite
+  const favourite = await Favourite.findOne({
+    room: roomId,
+    user: req.user.id
+  });
+
   res.json({
-    data: response[0]
+    data: { ...response[0], favourite: favourite ? true : false }
   });
 });
 
@@ -97,7 +103,7 @@ router.get("/favourites/:id", (req, res) => {
           type: "add"
         });
       })
-      .catch(error => {
+      .catch(() => {
         Favourite.deleteOne({ room: roomId, user: req.user.id }).then(() => {
           res.json({
             room: roomId,
@@ -119,10 +125,29 @@ router.get("/", async (req, res) => {
     groups: []
   };
 
+  const favourites = await Favourite.find(
+    { user: req.user.id },
+    { room: 1, _id: 0 }
+  );
+
   Room.find({
     users: { $eq: req.user.id }
   }).then(data => {
-    res.json({ data });
+    const fav = favourites.map(fav => fav.room);
+
+    data.map(room => {
+      // Favourites
+      if (fav.includes(room._id)) userRooms.favourites.push(room);
+      // Users
+      else if (
+        parseInt(room._id) === room.users.reduce((acc, curr) => acc * curr)
+      )
+        userRooms.peoples.push(room);
+      //Groups
+      else userRooms.groups.push(room);
+    });
+
+    res.json({ ...userRooms });
   });
 });
 

@@ -2,10 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
+import { addFavourite, deleteFavourite } from "../../redux/actions/room";
+
 import ConversationList from "./Conversation-List";
 
 const WidgetConversation = props => {
-  const { room } = props;
+  const { dispatch, room } = props;
   const users = room.users_info;
   const contentRef = useRef();
 
@@ -18,8 +20,11 @@ const WidgetConversation = props => {
   }, [room.messages]);
 
   const handleFavourites = () => {
-    axios.get(`/rooms/favourites/${room._id}`).then(data => {
-      console.log(data);
+    axios.get(`/rooms/favourites/${room._id}`).then(response => {
+      console.log(response.data);
+      if (response.data.type === "delete")
+        dispatch(deleteFavourite(response.data.room));
+      else dispatch(addFavourite(response.data.room));
     });
   };
 
@@ -39,7 +44,9 @@ const WidgetConversation = props => {
 
         <div className="right-options">
           <i
-            className="favorites flaticon-star active"
+            className={`favorites flaticon-star ${
+              room.favourite ? "active" : ""
+            }`}
             onClick={handleFavourites}
           ></i>
           <div className="more-options">

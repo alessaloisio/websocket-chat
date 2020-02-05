@@ -8,6 +8,8 @@ export const SELECT_ROOM_SUCCESS = "SELECT_ROOM_SUCCESS";
 export const SELECT_ROOM_FAILURE = "SELECT_ROOM_FAILURE";
 
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const ADD_FAVOURITE = "ADD_FAVOURITE";
+export const DELETE_FAVOURITE = "DELETE_FAVOURITE";
 
 /**
  * ACTION CREATOR
@@ -29,6 +31,16 @@ export const selectRoomFailure = error => ({
 export const addMessage = message => ({
   type: ADD_MESSAGE,
   payload: message
+});
+
+export const addFavourite = room => ({
+  type: ADD_FAVOURITE,
+  payload: room
+});
+
+export const deleteFavourite = room => ({
+  type: DELETE_FAVOURITE,
+  payload: room
 });
 
 /**
