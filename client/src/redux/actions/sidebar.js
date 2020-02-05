@@ -31,8 +31,17 @@ export function fetchListComplete() {
   return async dispatch => {
     dispatch(fetchListBegin());
 
-    axios.get("/rooms/").then(data => {
-      console.log(data);
-    });
+    axios
+      .get("/rooms/")
+      .then(response => {
+        if (response.status === 200) {
+          dispatch(fetchListSuccess(response.data));
+        } else {
+          throw new Error("Error with the response");
+        }
+      })
+      .catch(error => {
+        dispatch(fetchListFailure(error));
+      });
   };
 }

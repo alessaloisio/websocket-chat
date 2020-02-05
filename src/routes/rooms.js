@@ -5,9 +5,28 @@ import Favourite from "../models/favourite";
 
 const router = new Router();
 
+const lookupUsersRoom = userId => ({
+  $lookup: {
+    from: "users",
+    let: { uid: "$users" },
+    pipeline: [
+      {
+        $match: {
+          $expr: {
+            $and: [{ $ne: ["$_id", userId] }, { $in: ["$_id", "$$uid"] }]
+          }
+        }
+      }
+    ],
+    as: "users_info"
+  }
+});
+
 // Get/Create a room for user and an recipient
-router.get("/users/:id", async (req, res) => {
+router.get("/search/:id", async (req, res) => {
   const dest = parseInt(req.params.id) || null;
+
+  console.log(dest);
 
   const roomId = dest * req.user.id;
 
@@ -26,25 +45,7 @@ router.get("/users/:id", async (req, res) => {
         _id: `${roomId}`
       }
     },
-    {
-      $lookup: {
-        from: "users",
-        let: { uid: "$users" },
-        pipeline: [
-          {
-            $match: {
-              $expr: {
-                $and: [
-                  { $ne: ["$_id", req.user.id] },
-                  { $in: ["$_id", "$$uid"] }
-                ]
-              }
-            }
-          }
-        ],
-        as: "users_info"
-      }
-    }
+    lookupUsersRoom(req.user.id)
   ]);
 
   // Verify if user put the room on favourite
@@ -55,14 +56,6 @@ router.get("/users/:id", async (req, res) => {
 
   res.json({
     data: { ...response[0], favourite: favourite ? true : false }
-  });
-});
-
-// GET info of groups
-router.get("/groups/:id", (req, res) => {
-  const roomId = req.params.id || null;
-  res.json({
-    data: "test"
   });
 });
 
@@ -117,6 +110,38 @@ router.get("/favourites/:id", (req, res) => {
     });
 });
 
+// Get a room
+router.get("/:id", (req, res) => {
+  const roomId = req.params.id || null;
+
+  if (roomId) {
+    // Get favourites
+    Room.aggregate([
+      {
+        $match: {
+          _id: `${roomId}`,
+          users: { $eq: req.user.id } // if user authorize to see
+        }
+      },
+      lookupUsersRoom(req.user.id)
+    ]).then(async data => {
+      // Verify if user put the room on favourite
+      const favourite = await Favourite.findOne({
+        room: roomId,
+        user: req.user.id
+      });
+
+      res.json({
+        ...data[0],
+        favourite: !!favourite
+      });
+    });
+  } else
+    res.json({
+      data: null
+    });
+});
+
 // Get all infos
 router.get("/", async (req, res) => {
   const userRooms = {
@@ -130,9 +155,21 @@ router.get("/", async (req, res) => {
     { room: 1, _id: 0 }
   );
 
-  Room.find({
-    users: { $eq: req.user.id }
-  }).then(data => {
+  Room.aggregate([
+    {
+      $match: {
+        users: { $eq: req.user.id }
+      }
+    },
+    lookupUsersRoom(req.user.id),
+    {
+      $project: {
+        _id: 1,
+        users: 1,
+        users_info: 1
+      }
+    }
+  ]).then(data => {
     const fav = favourites.map(fav => fav.room);
 
     data.map(room => {

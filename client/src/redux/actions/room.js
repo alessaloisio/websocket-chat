@@ -46,17 +46,31 @@ export const deleteFavourite = room => ({
 /**
  * ACTION
  */
-export function selectRoomComplete(id) {
+export function searchSelectRoom(id) {
   return async dispatch => {
     dispatch(selectRoomBegin());
 
-    const str = id.split("-");
-
     axios
-      .get(`/rooms/${str[0]}/${str[1]}`)
+      .get(`/rooms/search/${id}`)
       .then(res => {
         if (res.status !== 200) throw new Error(res.statusText);
         dispatch(selectRoomSuccess(res.data.data));
+      })
+      .catch(error => {
+        dispatch(selectRoomFailure(error.message));
+      });
+  };
+}
+
+export function sidebarSelectRoom(id) {
+  return async dispatch => {
+    dispatch(selectRoomBegin());
+
+    axios
+      .get(`/rooms/${id}`)
+      .then(res => {
+        if (res.status !== 200) throw new Error(res.statusText);
+        dispatch(selectRoomSuccess(res.data));
       })
       .catch(error => {
         dispatch(selectRoomFailure(error.message));

@@ -8,9 +8,11 @@ import ConversationList from "./Conversation-List";
 
 const WidgetConversation = props => {
   const { dispatch, room } = props;
+  console.log("test", props);
   const users = room.users_info;
   const contentRef = useRef();
 
+  // Scrool down when new message
   useEffect(() => {
     const lastChild = contentRef.current.lastChild;
     if (lastChild)

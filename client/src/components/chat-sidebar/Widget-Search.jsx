@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { selectRoomComplete } from "../../redux/actions/room";
+import { searchSelectRoom } from "../../redux/actions/room";
 
 const WidgetSearch = props => {
   // MANAGE STATES
@@ -23,8 +23,8 @@ const WidgetSearch = props => {
     setGroups(groups.data.data || []);
   };
 
-  const handleElement = async id => {
-    props.dispatch(selectRoomComplete(id));
+  const handleElement = id => {
+    props.dispatch(searchSelectRoom(id));
 
     setSearchInput("");
     setUsers([]);
@@ -49,7 +49,7 @@ const WidgetSearch = props => {
                   {data[key].map(element => (
                     <li
                       key={element._id}
-                      onClick={() => handleElement(`${key}-${element._id}`)}
+                      onClick={() => handleElement(`${element._id}`)}
                     >
                       <img src={element.info.avatar} alt="Avatar" />
                       <p>{element.info.name}</p>
