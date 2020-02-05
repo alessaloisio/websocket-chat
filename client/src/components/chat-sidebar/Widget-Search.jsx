@@ -5,8 +5,8 @@ import axios from "axios";
 import { selectRoomComplete } from "../../redux/actions/room";
 
 const WidgetSearch = props => {
+  // MANAGE STATES
   const [searchInput, setSearchInput] = useState("");
-
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
 
@@ -31,6 +31,7 @@ const WidgetSearch = props => {
     setGroups([]);
   };
 
+  // SHOW AUTOCOMPLETE WHEN "searchInput" change
   const autocomplete = () => {
     const data = {
       users,

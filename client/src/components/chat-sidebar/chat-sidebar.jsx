@@ -1,19 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import WidgetSearch from "./Widget-Search";
-import List from "./chat-widget-list";
+import WidgetLists from "./Widget-Lists";
 
 import "./chat-sidebar.scss";
-
-const list = [
-  {
-    username: "Alicia",
-    avatar: "https://i.pravatar.cc/32",
-    status: "busy",
-    unread: 2
-  }
-];
 
 const Sidebar = ({ user }) => {
   return (
@@ -30,12 +21,7 @@ const Sidebar = ({ user }) => {
       </div>
 
       <WidgetSearch />
-
-      <List name="Favorites" list={list} />
-      {/* Groupes */}
-      <List name="Groupes" list={list} />
-      {/* Users */}
-      <List name="Peoples" list={list} />
+      <WidgetLists />
     </div>
   );
 };

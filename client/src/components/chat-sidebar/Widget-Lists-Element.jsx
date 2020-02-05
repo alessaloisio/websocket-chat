@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./chat-widget-list.scss";
+import "./Widget-Lists-Element.scss";
 
 export default props => {
   const getElements = props.list.map(element => (
-    <li>
+    <li key={element._id}>
       <span className="avatar">
         <img src={element.avatar} alt="User avatar" />
         {element.status && (

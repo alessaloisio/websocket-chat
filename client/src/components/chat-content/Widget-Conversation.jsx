@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import ConversationList from "./Conversation-List";
 
@@ -16,6 +17,12 @@ const WidgetConversation = props => {
       });
   }, [room.messages]);
 
+  const handleFavourites = () => {
+    axios.get(`/rooms/favourites/${room._id}`).then(data => {
+      console.log(data);
+    });
+  };
+
   return (
     <div className="Widget-Conversation">
       {/* Conversation Options (filters, favourites, manage) */}
@@ -31,7 +38,10 @@ const WidgetConversation = props => {
         </div>
 
         <div className="right-options">
-          <i className="favorites flaticon-star active"></i>
+          <i
+            className="favorites flaticon-star active"
+            onClick={handleFavourites}
+          ></i>
           <div className="more-options">
             <i className="flaticon-menu"></i>
           </div>
