@@ -1,21 +1,29 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+
+import { toggleModal } from "../../redux/actions/modal";
+
 import Modal from "../../containers/Modal/Modal";
 
 const AddGroups = props => {
-  const [showModal, setShowModal] = useState(false);
+  const { showModal, dispatch } = props;
 
-  const toggleModal = () => {
-    setShowModal(state => !state);
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [avatar, setAvatar] = useState("");
+
+  const handleModal = () => {
+    dispatch(toggleModal());
   };
 
   return (
     <React.Fragment>
-      <button className="modal-fixed-button" onClick={toggleModal}>
+      <button className="modal-fixed-button" onClick={handleModal}>
         <i className="flaticon-add"></i>
       </button>
       {showModal ? (
         <Modal>
-          <button className="modal-close" onClick={toggleModal}>
+          <button className="modal-close" onClick={handleModal}>
             <i className="flaticon-add"></i>
           </button>
 
@@ -23,24 +31,41 @@ const AddGroups = props => {
 
           <div className="input">
             <label for="name">Name:</label>
-            <input type="text" id="name" />
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
           </div>
 
           <div className="input">
             <label for="bio">Description:</label>
-            <input type="text" id="bio" />
+            <input
+              type="text"
+              id="bio"
+              value={bio}
+              onChange={e => setBio(e.target.value)}
+            />
           </div>
 
           <div className="input">
             <label for="avatar">Avatar:</label>
-            <input type="text" id="avatar" />
+            <input
+              type="text"
+              id="avatar"
+              value={avatar}
+              onChange={e => setAvatar(e.target.value)}
+            />
           </div>
 
-          <button className="btn">Save</button>
+          <button className="btn-primary">Save</button>
         </Modal>
       ) : null}
     </React.Fragment>
   );
 };
 
-export default AddGroups;
+export default connect(state => ({
+  showModal: state.modal.showModal
+}))(AddGroups);

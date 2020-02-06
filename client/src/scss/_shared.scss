@@ -21,10 +21,11 @@
 }
 
 // BTN
-.btn {
+.btn-primary {
   background-color: var(--main-color);
   color: #fff;
   border: none;
   padding: 0.75em 1em;
   border-radius: 10px;
+  cursor: pointer;
 }

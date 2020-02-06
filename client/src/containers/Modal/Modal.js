@@ -6,19 +6,17 @@ import "./Modal.scss";
 const modalRoot = document.getElementById("modal");
 
 const Modal = props => {
-  const element = document.createElement("div");
-  element.classList.add("modal-container");
-
   useEffect(() => {
-    modalRoot.appendChild(element);
     modalRoot.classList.add("active");
     return () => {
-      modalRoot.removeChild(element);
       modalRoot.classList.remove("active");
     };
   }, []);
 
-  return createPortal(props.children, element);
+  return createPortal(
+    <div className="modal-container">{props.children}</div>,
+    modalRoot
+  );
 };
 
 export default Modal;
