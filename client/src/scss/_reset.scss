@@ -127,3 +127,18 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}

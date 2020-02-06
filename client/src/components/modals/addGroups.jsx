@@ -1,39 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../../containers/Modal/Modal";
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
+const AddGroups = props => {
+  const [showModal, setShowModal] = useState(false);
 
-    this.state = {
-      showModal: false
-    };
-  }
-
-  toggleModal = () => {
-    this.setState({
-      showModal: !this.state.showModal
-    });
+  const toggleModal = () => {
+    setShowModal(state => !state);
   };
 
-  render() {
-    const { showModal } = this.state;
+  return (
+    <React.Fragment>
+      <button className="modal-fixed-button" onClick={toggleModal}>
+        <i className="flaticon-add"></i>
+      </button>
+      {showModal ? (
+        <Modal>
+          <button className="modal-close" onClick={toggleModal}>
+            <i className="flaticon-add"></i>
+          </button>
 
-    return (
-      <React.Fragment>
-        <button className="modal-fixed-button" onClick={this.toggleModal}>
-          <i className="flaticon-add"></i>
-        </button>
-        {showModal ? (
-          <Modal>
-            <h1 className="modal-head">Heading</h1>
-            <p>Lorem ipsum </p>
-            <button className="modal-close" onClick={this.toggleModal}>
-              <i className="flaticon-add"></i>
-            </button>
-          </Modal>
-        ) : null}
-      </React.Fragment>
-    );
-  }
-}
+          <h1 className="modal-head">Create a new group</h1>
+
+          <div className="input">
+            <label for="name">Name:</label>
+            <input type="text" id="name" />
+          </div>
+
+          <div className="input">
+            <label for="bio">Description:</label>
+            <input type="text" id="bio" />
+          </div>
+
+          <div className="input">
+            <label for="avatar">Avatar:</label>
+            <input type="text" id="avatar" />
+          </div>
+
+          <button className="btn">Save</button>
+        </Modal>
+      ) : null}
+    </React.Fragment>
+  );
+};
+
+export default AddGroups;

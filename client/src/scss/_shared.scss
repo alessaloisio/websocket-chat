@@ -1,0 +1,30 @@
+// Input block
+.input {
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5em;
+
+  label {
+    margin-right: 1em;
+  }
+
+  input {
+    flex: auto;
+    width: 100%;
+    padding: 0.25em 0;
+    background: transparent;
+    border: none;
+    color: #333;
+    border-bottom: 1px solid #c0c0c0;
+  }
+}
+
+// BTN
+.btn {
+  background-color: var(--main-color);
+  color: #fff;
+  border: none;
+  padding: 0.75em 1em;
+  border-radius: 10px;
+}
