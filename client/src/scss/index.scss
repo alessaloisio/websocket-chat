@@ -6,6 +6,14 @@
   --main-color: #7f30fe;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  display: initial;
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   background-color: #f5f5fb;

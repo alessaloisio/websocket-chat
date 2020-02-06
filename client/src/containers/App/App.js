@@ -9,6 +9,8 @@ import Login from "../Login/Login";
 import Header from "../../components/header/header";
 import Chat from "../Chat/Chat";
 
+import AddGroups from "../../components/modals/addGroups";
+
 import "../../assets/icons/flaticon.css";
 import "./App.scss";
 
@@ -33,6 +35,8 @@ const App = props => {
           </PrivateRoute>
         </Switch>
       </div>
+      {/* MODAL ADD A GROUP: FIXED BTN */}
+      <AddGroups />
     </Router>
   );
 };
