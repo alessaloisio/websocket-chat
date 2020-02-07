@@ -60,7 +60,9 @@ router.get("/search/:id", async (req, res) => {
     }
   }
 
-  // GET INFOS
+  /***
+   * GET INFOS
+   */
   const users_info = await User.find({ _id: findRoom.users });
   // Verify if user put the room on favourite
   const favourite = !!(await Favourite.findOne({
@@ -68,8 +70,13 @@ router.get("/search/:id", async (req, res) => {
     user: req.user.id
   }));
 
+  let group = {};
+  if (roomId != parseInt(roomId)) {
+    group = await Group.findById(roomId);
+  }
+
   res.json({
-    data: { ...findRoom._doc, favourite, users_info }
+    data: { ...findRoom._doc, favourite, users_info, group }
   });
 });
 
@@ -189,56 +196,45 @@ router.get("/", async (req, res) => {
     groups: []
   };
 
-  const favourites = await Favourite.find(
-    { user: req.user.id },
-    { room: 1, _id: 0 }
+  const favourites = Array.from(
+    await Favourite.find({ user: req.user.id }, { room: 1, _id: 0 }),
+    ({ room }) => room
   );
 
-  Room.aggregate([
-    {
-      $match: {
-        users: { $eq: req.user.id }
-      }
-    },
-    lookupUsersRoom(req.user.id),
-    {
-      $project: {
-        _id: 1,
-        users: 1,
-        users_info: 1
-      }
-    }
-  ]).then(async data => {
-    const fav = favourites.map(fav => fav.room);
-
-    // NB UNREAD
-
-    await Promise.all(
-      data.map(async room => {
-        // Favourites
-        if (fav.includes(room._id)) {
-          if (room._id != parseInt(room._id)) {
-            const group = await Group.findById(room._id);
-            userRooms.favourites.push({ ...room, group: group._doc });
-          } else {
-            userRooms.favourites.push(room);
-          }
+  const rooms = await Promise.all(
+    (
+      await Room.find(
+        { users: { $eq: req.user.id } },
+        {
+          _id: 1,
+          users: 1,
+          users_info: 1
         }
-        // Users
-        else if (
-          parseInt(room._id) === room.users.reduce((acc, curr) => acc * curr)
-        )
-          userRooms.peoples.push(room);
-        //Groups
-        else {
-          const group = await Group.findById(room._id);
-          userRooms.groups.push({ ...room, group: group._doc });
-        }
-      })
-    );
+      )
+    ).map(async room => {
+      const newObj = {
+        ...room._doc
+      };
 
-    res.json({ ...userRooms });
+      newObj.users_info = await User.find({ _id: room.users });
+
+      if (room._id != parseInt(room._id))
+        newObj.group = await Group.findById(room._id);
+
+      return newObj;
+    })
+  );
+
+  rooms.map(room => {
+    if (favourites.includes(room._id)) userRooms.favourites.push(room);
+    else if (
+      parseInt(room._id) === room.users.reduce((acc, curr) => acc * curr)
+    )
+      userRooms.peoples.push(room);
+    else userRooms.groups.push(room);
   });
+
+  res.json({ ...userRooms });
 });
 
 export default router;

@@ -16,8 +16,6 @@ const WidgetLists = props => {
     <>
       {sidebar &&
         Object.keys(sidebar).map(key => {
-          console.log(key);
-          console.log(sidebar[key]);
           if (sidebar[key].length)
             return <List name={key} list={sidebar[key]} />;
         })}

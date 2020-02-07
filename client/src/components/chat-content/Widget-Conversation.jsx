@@ -2,13 +2,11 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import ConversationHeader from "./Conversation-Header";
+import ConversationInformations from "./Conversation-Informations";
 import ConversationList from "./Conversation-List";
 
 const WidgetConversation = props => {
   const { dispatch, room } = props;
-
-  const type = room.group ? "group" : "user";
-  const users = room.users_info;
 
   const contentRef = useRef();
 
@@ -27,10 +25,7 @@ const WidgetConversation = props => {
       <ConversationHeader />
 
       {/* Conversation Informations (speakers, owner, name, description) */}
-      <div className="conversation-informations">
-        <p className="name">{users[0].info.name}</p>
-        <p className="description">{users[0].info.bio}</p>
-      </div>
+      <ConversationInformations />
 
       {/* Lists messages + Lists files uploaded */}
       <div className="conversation-content">
