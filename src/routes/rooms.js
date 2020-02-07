@@ -161,25 +161,25 @@ router.get("/:id", async (req, res) => {
   const roomId = req.params.id || null;
 
   if (roomId) {
-    const findRoom = await Room.findOne({
+    const room = await Room.findOne({
       _id: `${roomId}`,
-      users: { $eq: req.user.id }
+      users: { $eq: req.user.id } //
     });
 
-    const users_info = await User.find({ _id: findRoom.users });
+    const users_info = await User.find({ _id: room.users });
 
-    const favourite = await Favourite.findOne({
+    const favourite = !!(await Favourite.findOne({
       room: roomId,
       user: req.user.id
-    });
+    }));
 
-    let group = null;
-    if (roomId != parseInt(roomId)) group = await Group.findById(roomId);
+    const group =
+      roomId != parseInt(roomId) ? await Group.findById(roomId) : null;
 
     res.json({
-      ...findRoom._doc,
+      ...room._doc,
       users_info,
-      favourite: !!favourite,
+      favourite,
       group
     });
   } else
