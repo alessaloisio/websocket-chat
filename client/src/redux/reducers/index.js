@@ -5,6 +5,13 @@ import socket from "./socket";
 import room from "./room";
 import message from "./message.js";
 import sidebar from "./sidebar";
-import modal from "./modal";
+import groups from "./groups";
 
-export default combineReducers({ user, socket, sidebar, room, message, modal });
+export default combineReducers({
+  user,
+  socket,
+  sidebar,
+  room,
+  message,
+  groups
+});

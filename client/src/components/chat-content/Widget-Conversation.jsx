@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 
-import { addFavourite, deleteFavourite } from "../../redux/actions/room";
-
+import ConversationHeader from "./Conversation-Header";
 import ConversationList from "./Conversation-List";
 
 const WidgetConversation = props => {
   const { dispatch, room } = props;
-  console.log("test", props);
+
+  const type = room.group ? "group" : "user";
   const users = room.users_info;
+
   const contentRef = useRef();
 
   // Scrool down when new message
@@ -21,41 +21,10 @@ const WidgetConversation = props => {
       });
   }, [room.messages]);
 
-  const handleFavourites = () => {
-    axios.get(`/rooms/favourites/${room._id}`).then(response => {
-      console.log(response.data);
-      if (response.data.type === "delete")
-        dispatch(deleteFavourite(response.data.room));
-      else dispatch(addFavourite(response.data.room));
-    });
-  };
-
   return (
     <div className="Widget-Conversation">
       {/* Conversation Options (filters, favourites, manage) */}
-      <div className="conversation-options">
-        <div className="btn filter">
-          <i className="flaticon-filter"></i>
-          Filter
-        </div>
-
-        <div className="search-message">
-          <span className="btn search-button">Search:</span>
-          <input type="text" />
-        </div>
-
-        <div className="right-options">
-          <i
-            className={`favorites flaticon-star ${
-              room.favourite ? "active" : ""
-            }`}
-            onClick={handleFavourites}
-          ></i>
-          <div className="more-options">
-            <i className="flaticon-menu"></i>
-          </div>
-        </div>
-      </div>
+      <ConversationHeader />
 
       {/* Conversation Informations (speakers, owner, name, description) */}
       <div className="conversation-informations">

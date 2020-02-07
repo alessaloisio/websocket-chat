@@ -3,7 +3,7 @@ import { Schema } from "mongoose";
 const PersonalInfo = new Schema(
   {
     avatar: String,
-    name: String,
+    name: { type: String, required: true },
     bio: { type: String, trim: true },
     links: Object
   },

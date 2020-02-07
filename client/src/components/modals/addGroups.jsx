@@ -1,29 +1,41 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { toggleModal } from "../../redux/actions/modal";
+import { createGroupComplete } from "../../redux/actions/groups";
 
 import Modal from "../../containers/Modal/Modal";
 
 const AddGroups = props => {
-  const { showModal, dispatch } = props;
+  const { dispatch } = props;
+  const [showModal, setShowModal] = useState(false);
 
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  const handleModal = () => {
-    dispatch(toggleModal());
+  const toggleModal = () => {
+    // Clear
+    setName("");
+    setBio("");
+    setAvatar("");
+
+    setShowModal(state => !state);
+  };
+
+  const handleSave = () => {
+    const data = { name, bio, avatar };
+
+    dispatch(createGroupComplete(data));
   };
 
   return (
     <React.Fragment>
-      <button className="modal-fixed-button" onClick={handleModal}>
+      <button className="modal-fixed-button" onClick={toggleModal}>
         <i className="flaticon-add"></i>
       </button>
       {showModal ? (
         <Modal>
-          <button className="modal-close" onClick={handleModal}>
+          <button className="modal-close" onClick={toggleModal}>
             <i className="flaticon-add"></i>
           </button>
 
@@ -59,13 +71,13 @@ const AddGroups = props => {
             />
           </div>
 
-          <button className="btn-primary">Save</button>
+          <button className="btn-primary" onClick={handleSave}>
+            Save
+          </button>
         </Modal>
       ) : null}
     </React.Fragment>
   );
 };
 
-export default connect(state => ({
-  showModal: state.modal.showModal
-}))(AddGroups);
+export default connect()(AddGroups);

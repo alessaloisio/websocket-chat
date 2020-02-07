@@ -22,7 +22,6 @@ router.use("/search/:name", async (req, res) => {
   });
 });
 
-// https://expressjs.com/fr/guide/routing.html
 router.use("/:login", async (req, res) => {
   const login = req.params.login || "";
 
