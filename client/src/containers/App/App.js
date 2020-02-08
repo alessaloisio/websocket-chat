@@ -36,7 +36,7 @@ const App = props => {
         </Switch>
       </div>
       {/* MODAL ADD A GROUP: FIXED BTN */}
-      <AddGroups />
+      {props.user && <AddGroups />}
     </Router>
   );
 };

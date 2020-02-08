@@ -3,15 +3,30 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 import { addFavourite, deleteFavourite } from "../../redux/actions/room";
+import { switchElementList } from "../../redux/actions/sidebar";
 
 const ConversationHeader = props => {
   const { dispatch, room } = props;
 
   const handleFavourites = () => {
     axios.get(`/rooms/favourites/${room._id}`).then(response => {
-      if (response.data.type === "delete")
+      if (response.data.type === "delete") {
+        dispatch(
+          switchElementList({
+            room: room._id,
+            dest: room.group ? "groups" : "peoples"
+          })
+        );
         dispatch(deleteFavourite(response.data.room));
-      else dispatch(addFavourite(response.data.room));
+      } else {
+        dispatch(
+          switchElementList({
+            room: room._id,
+            dest: "favourites"
+          })
+        );
+        dispatch(addFavourite(response.data.room));
+      }
     });
   };
   return (

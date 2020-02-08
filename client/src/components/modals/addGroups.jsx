@@ -1,3 +1,5 @@
+// FILE IMPORTED ON "containers/App.js"
+
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
@@ -26,6 +28,8 @@ const AddGroups = props => {
     const data = { name, bio, avatar };
 
     dispatch(createGroupComplete(data));
+
+    toggleModal();
   };
 
   return (
@@ -34,7 +38,7 @@ const AddGroups = props => {
         <i className="flaticon-add"></i>
       </button>
       {showModal ? (
-        <Modal>
+        <Modal className="addGroup">
           <button className="modal-close" onClick={toggleModal}>
             <i className="flaticon-add"></i>
           </button>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { addElementList } from "./sidebar";
 
 /**
  * ACTION TYPES
@@ -54,7 +55,14 @@ export function searchSelectRoom(id) {
       .get(`/rooms/search/${id}`)
       .then(res => {
         if (res.status !== 200) throw new Error(res.statusText);
-        dispatch(selectRoomSuccess(res.data.data));
+        const room = res.data.data;
+        dispatch(
+          addElementList({
+            name: room.group ? "groups" : "peoples",
+            data: room
+          })
+        );
+        dispatch(selectRoomSuccess(room));
       })
       .catch(error => {
         dispatch(selectRoomFailure(error.message));

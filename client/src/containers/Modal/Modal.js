@@ -14,7 +14,9 @@ const Modal = props => {
   }, []);
 
   return createPortal(
-    <div className="modal-container">{props.children}</div>,
+    <div className={`modal-container ${props.className}`}>
+      {props.children}
+    </div>,
     modalRoot
   );
 };

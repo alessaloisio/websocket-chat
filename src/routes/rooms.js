@@ -7,6 +7,21 @@ import Group from "../models/group";
 
 const router = new Router();
 
+// INFOS ROOM
+const getInfoRoom = async (user, room) => {
+  const users_info = await User.find({ _id: room.users });
+
+  const favourite = !!(await Favourite.findOne({
+    room: room._id,
+    user
+  }));
+
+  const group =
+    room._id != parseInt(room._id) ? await Group.findById(room._id) : null;
+
+  return { favourite, users_info, group };
+};
+
 // Create group
 router.post("/groups/", (req, res) => {
   // Create the new document
@@ -27,6 +42,7 @@ router.post("/groups/", (req, res) => {
       return room.save();
     })
     .then(data => {
+      data = { ...data._doc, group };
       res.json({
         data
       });
@@ -82,21 +98,6 @@ router.get("/favourites/:id", (req, res) => {
     });
 });
 
-// INFOS ROOM
-const getInfoRoom = async (user, room) => {
-  const users_info = await User.find({ _id: room.users });
-
-  const favourite = !!(await Favourite.findOne({
-    room: room._id,
-    user
-  }));
-
-  const group =
-    room._id != parseInt(room._id) ? await Group.findById(room._id) : null;
-
-  return { favourite, users_info, group };
-};
-
 /**
  * Get/Create a room for user who want to join a room
  * Need to return a room informations for the user
@@ -115,14 +116,18 @@ router.get("/search/:id", async (req, res) => {
     roomId = dest; // ObjectID
   }
 
-  const room = await Room.findById(roomId);
+  let room = await Room.findById(roomId, {
+    _id: 1,
+    users: 1,
+    users_info: 1
+  });
 
   // User search an another user and want to create a room to chat with him
   if (!room && type === "user") {
-    const newRoom = new Room();
-    newRoom._id = roomId;
-    newRoom.users = [req.user.id, dest];
-    await newRoom.save();
+    room = new Room();
+    room._id = roomId;
+    room.users = [req.user.id, dest];
+    await room.save();
   }
 
   // User want to join a group
@@ -133,11 +138,17 @@ router.get("/search/:id", async (req, res) => {
     }
   }
 
-  const infos = await getInfoRoom(req.user.id, room);
+  if (room) {
+    const infos = await getInfoRoom(req.user.id, room);
 
-  res.json({
-    data: { ...room._doc, ...infos }
-  });
+    res.json({
+      data: { ...room._doc, ...infos }
+    });
+  } else {
+    res.json({
+      data: null
+    });
+  }
 });
 
 // Get a room
@@ -147,19 +158,22 @@ router.get("/:id", async (req, res) => {
   if (roomId) {
     const room = await Room.findOne({
       _id: `${roomId}`,
-      users: { $eq: req.user.id } //
+      users: { $eq: req.user.id }
     });
 
-    const infos = await getInfoRoom(req.user.id, room);
+    if (room) {
+      const infos = await getInfoRoom(req.user.id, room);
 
-    res.json({
-      ...room._doc,
-      ...infos
-    });
-  } else
-    res.json({
-      data: null
-    });
+      return res.json({
+        ...room._doc,
+        ...infos
+      });
+    }
+  }
+
+  res.json({
+    data: null
+  });
 });
 
 // Get all user rooms

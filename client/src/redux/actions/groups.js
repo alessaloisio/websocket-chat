@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { addElementList } from "./sidebar";
+
 /**
  * ACTION TYPES
  */
@@ -35,6 +37,14 @@ export function createGroupComplete(data) {
       .post(`/rooms/groups/`, data)
       .then(res => {
         if (res.status !== 200) throw new Error(res.statusText);
+
+        dispatch(
+          addElementList({
+            name: "groups",
+            data: res.data.data
+          })
+        );
+
         dispatch(createGroupSuccess(res.data));
       })
       .catch(error => {

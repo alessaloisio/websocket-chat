@@ -31,13 +31,12 @@ const WidgetConversation = props => {
       <div className="conversation-content">
         <div className="messages">
           <ul ref={contentRef}>
-            {room.messages.map(msg => (
-              <ConversationList message={msg} />
-            ))}
+            {room.messages &&
+              room.messages.map(msg => <ConversationList message={msg} />)}
           </ul>
         </div>
 
-        {room.files.length > 0 && (
+        {room.files && room.files.length > 0 && (
           <div className="files">
             <ul>
               <li>
