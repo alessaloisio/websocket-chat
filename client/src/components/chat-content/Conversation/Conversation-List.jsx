@@ -1,13 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import moment from "moment";
 
 const ConversationList = props => {
-  const { message, users } = props;
+  const { message } = props;
+
+  const currentUser = useSelector(state => state.user.data);
+  const users = useSelector(state => state.room.data.users_info);
+
+  const owner = currentUser._id === message.owner;
 
   let user;
-  const owner = props.user._id === message.owner;
-
   if (!owner) {
     user = users.filter(user => user._id === message.owner)[0];
   }
@@ -34,7 +37,4 @@ const ConversationList = props => {
   );
 };
 
-export default connect(state => ({
-  user: state.user.data,
-  users: state.room.data.users_info
-}))(ConversationList);
+export default ConversationList;

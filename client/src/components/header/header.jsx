@@ -1,15 +1,18 @@
 import React from "react";
-import { connect } from "react-redux";
 
+import { useSelector, useDispatch } from "react-redux";
 import { userLogoutComplete } from "../../redux/actions/user";
 import { socketDisconnect } from "../../redux/actions/socket";
 
 import "./header.scss";
 
 const Header = props => {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.data);
+
   const handleLogout = () => {
-    props.dispatch(socketDisconnect());
-    props.dispatch(userLogoutComplete());
+    dispatch(socketDisconnect());
+    dispatch(userLogoutComplete());
   };
 
   return (
@@ -18,7 +21,7 @@ const Header = props => {
       <div className="Profil">
         <i className="Notification flaticon-notification"></i>
         <span className="Avatar">
-          <img src={props.user.info.avatar} alt="User avatar" />
+          <img src={user.info.avatar} alt="User avatar" />
         </span>
         <i className="Arrow flaticon-down-arrow"></i>
 
@@ -30,6 +33,4 @@ const Header = props => {
   );
 };
 
-export default connect(state => ({
-  user: state.user.data
-}))(Header);
+export default Header;

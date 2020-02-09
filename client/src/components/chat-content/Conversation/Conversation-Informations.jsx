@@ -1,8 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 
-const ConversationInformations = props => {
-  const { dispatch, room } = props;
+import { useSelector } from "react-redux";
+
+const ConversationInformations = () => {
+  const room = useSelector(state => state.room.data);
 
   const roomInfo = room.group ? room.group : room.users_info[0];
 
@@ -36,6 +37,4 @@ const ConversationInformations = props => {
   );
 };
 
-export default connect(state => ({
-  room: state.room.data
-}))(ConversationInformations);
+export default ConversationInformations;

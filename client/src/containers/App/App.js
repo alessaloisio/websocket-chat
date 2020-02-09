@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import authPreload from "../../libs/authPreload";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { PrivateRoute, PublicRoute } from "../../libs/routeMiddleware";
+import authPreload from "../../libs/authPreload";
 
 import Login from "../Login/Login";
-import Header from "../../components/header/header";
 import Chat from "../Chat/Chat";
 
+import Header from "../../components/header/header";
 import AddGroups from "../../components/modals/addGroups";
 
 import "../../assets/icons/flaticon.css";
@@ -35,6 +35,7 @@ const App = props => {
           </PrivateRoute>
         </Switch>
       </div>
+
       {/* MODAL ADD A GROUP: FIXED BTN */}
       {props.user && <AddGroups />}
     </Router>

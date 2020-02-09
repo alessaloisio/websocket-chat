@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 
+import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../../redux/actions/room";
 
 import WidgetConversation from "./Conversation/Widget-Conversation";
@@ -9,8 +9,10 @@ import WidgetInput from "./Input/Widget-Input";
 import imageNoRoom from "../../assets/images/noRoom.svg";
 import "./chat-content.scss";
 
-const ChatContent = props => {
-  const { io, dispatch, room } = props;
+const ChatContent = () => {
+  const dispatch = useDispatch();
+  const io = useSelector(state => state.socket);
+  const room = useSelector(state => state.room.data);
 
   useEffect(() => {
     // user are on the room, show the message
@@ -26,7 +28,7 @@ const ChatContent = props => {
       });
     }
 
-    // user are not on any room, send a notification
+    // TODO: user are not on any room, send a notification
 
     return () => {
       if (event) event.removeListener();
@@ -52,7 +54,4 @@ const ChatContent = props => {
   return <div className="Chat-Content">{contentShow()}</div>;
 };
 
-export default connect(state => ({
-  room: state.room.data,
-  io: state.socket
-}))(ChatContent);
+export default ChatContent;

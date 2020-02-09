@@ -1,12 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
 import axios from "axios";
 
+import { useDispatch, useSelector } from "react-redux";
 import { addFavourite, deleteFavourite } from "../../../redux/actions/room";
 import { switchElementList } from "../../../redux/actions/sidebar";
 
 const ConversationHeader = props => {
-  const { dispatch, room } = props;
+  const dispatch = useDispatch();
+  const room = useSelector(state => state.room.data);
 
   const handleFavourites = () => {
     axios.get(`/rooms/favourites/${room._id}`).then(response => {
@@ -29,6 +30,7 @@ const ConversationHeader = props => {
       }
     });
   };
+
   return (
     <div className="conversation-options">
       <div className="btn filter">
@@ -48,6 +50,7 @@ const ConversationHeader = props => {
           }`}
           onClick={handleFavourites}
         ></i>
+
         <div className="more-options">
           <i className="flaticon-menu"></i>
         </div>
@@ -56,6 +59,4 @@ const ConversationHeader = props => {
   );
 };
 
-export default connect(state => ({
-  room: state.room.data
-}))(ConversationHeader);
+export default ConversationHeader;

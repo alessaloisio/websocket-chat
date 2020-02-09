@@ -1,22 +1,42 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
+import { useDispatch, useSelector } from "react-redux";
 import { sendMessageComplete } from "../../../redux/actions/message";
 
 import "./Widget-Input.scss";
 
-export default () => {
-  const room = useSelector(state => state.room.data);
+const WidgetInput = () => {
   const dispatch = useDispatch();
+  const room = useSelector(state => state.room.data);
 
   const inputRef = useRef();
   const [input, setInput] = useState("");
 
-  // TODO: get input from localStorage
+  // Get input from localStorage OR
+  // When change room reset input
+  useEffect(() => {
+    const messages = JSON.parse(localStorage.getItem("messages")) || {};
+    if (messages[room._id]) setInput(messages[room._id]);
+    else setInput("");
+  }, [room]);
 
   const handleInputChange = e => {
-    setInput(e.target.value);
-    // TODO: save on localStorage
+    const value = e.target.value;
+
+    setInput(value);
+
+    // Save on localStorage
+    const messages = JSON.parse(localStorage.getItem("messages")) || {};
+
+    if (value.length > 0) messages[room._id] = value;
+    else delete messages[room._id];
+
+    localStorage.setItem(
+      "messages",
+      JSON.stringify({
+        ...messages
+      })
+    );
   };
 
   const handleInputKeyPress = e => {
@@ -34,7 +54,6 @@ export default () => {
     data.room = room._id;
 
     dispatch(sendMessageComplete(data));
-
     setInput("");
   };
 
@@ -68,3 +87,5 @@ export default () => {
     </div>
   );
 };
+
+export default WidgetInput;

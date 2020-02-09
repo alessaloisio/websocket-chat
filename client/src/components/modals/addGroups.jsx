@@ -1,14 +1,15 @@
 // FILE IMPORTED ON "containers/App.js"
 
 import React, { useState } from "react";
-import { connect } from "react-redux";
 
+import { useDispatch } from "react-redux";
 import { createGroupComplete } from "../../redux/actions/groups";
 
 import Modal from "../../containers/Modal/Modal";
 
-const AddGroups = props => {
-  const { dispatch } = props;
+const AddGroups = () => {
+  const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
 
   const [name, setName] = useState("");
@@ -26,9 +27,7 @@ const AddGroups = props => {
 
   const handleSave = () => {
     const data = { name, bio, avatar };
-
     dispatch(createGroupComplete(data));
-
     toggleModal();
   };
 
@@ -84,4 +83,4 @@ const AddGroups = props => {
   );
 };
 
-export default connect()(AddGroups);
+export default AddGroups;

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
+import { useSelector, useDispatch } from "react-redux";
 import { fetchListComplete } from "../../../redux/actions/sidebar";
 
 import List from "./Widget-Lists-Element";
 
-const WidgetLists = props => {
+const WidgetLists = () => {
   const dispatch = useDispatch();
   const sidebar = useSelector(state => state.sidebar.data);
 

@@ -1,25 +1,26 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import getQueries from "../../helpers/getQueries";
+import { useDispatch } from "react-redux";
 import { fetchUserComplete } from "../../redux/actions/user";
 
-import "./Login.scss";
+import getQueries from "../../helpers/getQueries";
 
 import imageLogin from "../../assets/images/login.svg";
+import "./Login.scss";
 
-const Login = props => {
+const Login = () => {
+  const dispatch = useDispatch();
+
   const queries = getQueries(window.location.search);
-
   if (queries.access_token) {
     const expires = new Date();
     document.cookie = `access_token=${
       queries.access_token
     }; expires=${expires.setDate(expires.getDate() + 730)}; path=/`;
 
-    // TODO : store user to state
-    props.dispatch(fetchUserComplete());
+    // store user to state
+    dispatch(fetchUserComplete());
 
     return <Redirect to="/" />;
   }
@@ -35,4 +36,4 @@ const Login = props => {
   );
 };
 
-export default connect()(Login);
+export default Login;

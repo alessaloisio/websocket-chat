@@ -4,15 +4,17 @@ import { fetchUserComplete } from "../redux/actions/user";
 import { socketConnectComplete } from "../redux/actions/socket";
 
 export default props => {
+  const { dispatch, user } = props;
+
   // Page reload auto connect the user
   const access_token = window.getCookie("access_token");
-  if (access_token && !props.user) {
-    props.dispatch(fetchUserComplete());
+  if (access_token && !user) {
+    dispatch(fetchUserComplete());
     throw "connect user !";
   }
 
   // User connected
-  if (props.user) {
+  if (user) {
     // Automatically add Authorization to Axios Request
     axios.interceptors.request.use(config => {
       config.headers.Authorization = access_token;
@@ -20,6 +22,6 @@ export default props => {
     });
 
     // Create the connection to the socket.io
-    props.dispatch(socketConnectComplete());
+    dispatch(socketConnectComplete());
   }
 };

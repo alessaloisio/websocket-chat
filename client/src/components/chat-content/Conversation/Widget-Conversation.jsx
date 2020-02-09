@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { connect } from "react-redux";
+
+import { useSelector } from "react-redux";
 
 import ConversationHeader from "./Conversation-Header";
 import ConversationInformations from "./Conversation-Informations";
@@ -7,8 +8,8 @@ import ConversationList from "./Conversation-List";
 
 import "./Widget-Conversation.scss";
 
-const WidgetConversation = props => {
-  const { dispatch, room } = props;
+const WidgetConversation = () => {
+  const room = useSelector(state => state.room.data);
 
   const contentRef = useRef();
 
@@ -59,6 +60,4 @@ const WidgetConversation = props => {
   );
 };
 
-export default connect(state => ({
-  room: state.room.data
-}))(WidgetConversation);
+export default WidgetConversation;
