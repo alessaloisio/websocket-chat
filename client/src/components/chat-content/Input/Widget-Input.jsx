@@ -16,27 +16,13 @@ const WidgetInput = () => {
   // When change room reset input
   useEffect(() => {
     const messages = JSON.parse(localStorage.getItem("messages")) || {};
-    if (messages[room._id]) setInput(messages[room._id]);
-    else setInput("");
+    if (messages[room._id]) {
+      setInput(messages[room._id]);
+    } else setInput("");
   }, [room]);
 
   const handleInputChange = e => {
-    const value = e.target.value;
-
-    setInput(value);
-
-    // Save on localStorage
-    const messages = JSON.parse(localStorage.getItem("messages")) || {};
-
-    if (value.length > 0) messages[room._id] = value;
-    else delete messages[room._id];
-
-    localStorage.setItem(
-      "messages",
-      JSON.stringify({
-        ...messages
-      })
-    );
+    setInput(e.targetvalue);
   };
 
   const handleInputKeyPress = e => {
@@ -57,13 +43,26 @@ const WidgetInput = () => {
     setInput("");
   };
 
-  // Resize the textarea when input value change
   useEffect(() => {
+    // Resize the textarea when input value change
     const el = inputRef.current;
     setTimeout(() => {
       el.style.cssText = "height:auto; padding:4px 1em";
       el.style.cssText = `height: ${el.scrollHeight}px`;
     }, 0);
+
+    // Save on localStorage
+    const messages = JSON.parse(localStorage.getItem("messages")) || {};
+
+    if (input.length > 0) messages[room._id] = input;
+    else delete messages[room._id];
+
+    localStorage.setItem(
+      "messages",
+      JSON.stringify({
+        ...messages
+      })
+    );
   }, [input]);
 
   return (
