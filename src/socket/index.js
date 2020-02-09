@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import url from "url";
 
+import User from "../models/user";
+import Room from "../models/room";
+
 export default io => {
   // When client connect, generate the socket id with the userId
   io.engine.generateId = req => {
@@ -35,8 +38,28 @@ export default io => {
     }
   });
 
-  io.on("connection", client => {
+  io.on("connection", async client => {
     console.log(`Client ${client.id} connected`);
-    client.on("disconnect", () => console.log("Client disconnected"));
+    await User.updateOne({ _id: client.id }, { status: true });
+    emit2Others(client.id, true);
+
+    client.on("disconnect", async () => {
+      console.log("Client disconnected");
+      await User.updateOne({ _id: client.id }, { status: false });
+      emit2Others(client.id, false);
+    });
   });
+
+  const emit2Others = async (userId, status) => {
+    const rooms = await Room.find({ users: userId }, { _id: 1, users: 1 });
+    const peoplesRoom = rooms.filter(room => parseInt(room._id) == room._id);
+    peoplesRoom.map(room => {
+      const recipientId = room.users.find(element => element !== userId);
+      if (io.sockets.connected[recipientId])
+        io.sockets.connected[recipientId].emit("userStatus", {
+          userId,
+          status
+        });
+    });
+  };
 };

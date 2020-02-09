@@ -3,7 +3,8 @@ import {
   FETCH_LIST_FAILURE,
   FETCH_LIST_SUCCESS,
   ADD_ELEMENT_LIST,
-  SWITCH_ELEMENT_LIST
+  SWITCH_ELEMENT_LIST,
+  UPDATE_ELEMENT_LIST
 } from "../actions/sidebar";
 
 const initialState = {
@@ -79,6 +80,13 @@ export default function(state = initialState, action) {
           ...data,
           [action.payload.dest]: [...state.data[action.payload.dest], element]
         }
+      };
+    }
+
+    case UPDATE_ELEMENT_LIST: {
+      console.log(action.payload);
+      return {
+        ...state
       };
     }
 

@@ -9,6 +9,7 @@ export const FETCH_LIST_FAILURE = "FETCH_LIST_FAILURE";
 
 export const ADD_ELEMENT_LIST = "ADD_ELEMENT_LIST";
 export const SWITCH_ELEMENT_LIST = "SWITCH_ELEMENT_LIST";
+export const UPDATE_ELEMENT_LIST = "UPDATE_ELEMENT_LIST";
 
 /**
  * ACTION CREATOR
@@ -34,6 +35,11 @@ export const addElementList = data => ({
 
 export const switchElementList = data => ({
   type: SWITCH_ELEMENT_LIST,
+  payload: data
+});
+
+export const updateElementList = data => ({
+  type: UPDATE_ELEMENT_LIST,
   payload: data
 });
 
