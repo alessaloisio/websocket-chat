@@ -5,6 +5,8 @@ import ConversationHeader from "./Conversation-Header";
 import ConversationInformations from "./Conversation-Informations";
 import ConversationList from "./Conversation-List";
 
+import "./Widget-Conversation.scss";
+
 const WidgetConversation = props => {
   const { dispatch, room } = props;
 
@@ -36,6 +38,7 @@ const WidgetConversation = props => {
           </ul>
         </div>
 
+        {/* TODO: show sending files */}
         {room.files && room.files.length > 0 && (
           <div className="files">
             <ul>

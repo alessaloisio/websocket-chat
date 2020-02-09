@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { addFavourite, deleteFavourite } from "../../redux/actions/room";
-import { switchElementList } from "../../redux/actions/sidebar";
+import { addFavourite, deleteFavourite } from "../../../redux/actions/room";
+import { switchElementList } from "../../../redux/actions/sidebar";
 
 const ConversationHeader = props => {
   const { dispatch, room } = props;

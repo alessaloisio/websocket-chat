@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { sendMessageComplete } from "../../redux/actions/message";
+import { sendMessageComplete } from "../../../redux/actions/message";
+
+import "./Widget-Input.scss";
 
 export default () => {
   const room = useSelector(state => state.room.data);

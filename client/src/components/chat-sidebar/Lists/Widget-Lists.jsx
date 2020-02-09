@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { fetchListComplete } from "../../redux/actions/sidebar";
+import { fetchListComplete } from "../../../redux/actions/sidebar";
 
 import List from "./Widget-Lists-Element";
 
 const WidgetLists = props => {
-  const { dispatch, sidebar } = props;
+  const dispatch = useDispatch();
+  const sidebar = useSelector(state => state.sidebar.data);
 
   useEffect(() => {
     dispatch(fetchListComplete());
@@ -23,6 +24,4 @@ const WidgetLists = props => {
   );
 };
 
-export default connect(state => ({
-  sidebar: state.sidebar.data
-}))(WidgetLists);
+export default WidgetLists;

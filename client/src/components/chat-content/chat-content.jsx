@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 import { addMessage } from "../../redux/actions/room";
 
-import WidgetConversation from "./Widget-Conversation";
-import WidgetInput from "./Widget-Input";
+import WidgetConversation from "./Conversation/Widget-Conversation";
+import WidgetInput from "./Input/Widget-Input";
 
 import imageNoRoom from "../../assets/images/noRoom.svg";
 import "./chat-content.scss";

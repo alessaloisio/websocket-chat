@@ -1,13 +1,15 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { sidebarSelectRoom } from "../../redux/actions/room";
+import { sidebarSelectRoom } from "../../../redux/actions/room";
 
 import "./Widget-Lists-Element.scss";
 
 const WidgetListsElement = props => {
+  const dispatch = useDispatch();
+
   const handleElement = id => {
-    props.dispatch(sidebarSelectRoom(id));
+    dispatch(sidebarSelectRoom(id));
   };
 
   const getElements = props.list.map(element => {
@@ -39,4 +41,4 @@ const WidgetListsElement = props => {
   );
 };
 
-export default connect()(WidgetListsElement);
+export default WidgetListsElement;
