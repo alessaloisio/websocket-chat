@@ -19,11 +19,10 @@ const WidgetListsElement = props => {
       <li key={element._id} onClick={() => handleElement(`${element._id}`)}>
         <span className="avatar">
           <img src={personalInfo.info.avatar} alt="User avatar" />
-          {personalInfo.status && (
-            <div className="status">
-              <span className={personalInfo.status}></span>
-            </div>
-          )}
+
+          <div className="status">
+            <span className={personalInfo.status ? "online" : "offline"}></span>
+          </div>
         </span>
         <span className="name">{personalInfo.info.name}</span>
         <span className="unread">
