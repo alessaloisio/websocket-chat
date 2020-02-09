@@ -63,12 +63,61 @@
     }
 
     .conversation-informations {
-      .name {
-        font-weight: bold;
-        margin-bottom: 0.5em;
+      .room-info {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        .room-avatar {
+          width: 4em;
+          height: 4em;
+          margin-right: 1em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 100%;
+          overflow: hidden;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .room-name {
+          .name {
+            font-weight: bold;
+            margin-bottom: 0.5em;
+          }
+          .description {
+            font-size: 0.75em;
+          }
+        }
       }
-      .description {
-        font-size: 0.75em;
+
+      .users-infos {
+        display: flex;
+        margin-top: 1em;
+        align-items: center;
+
+        p {
+          margin-right: 2em;
+          margin-left: 0.5em;
+        }
+
+        .avatar {
+          width: 2em;
+          height: 2em;
+          overflow: hidden;
+          border-radius: 100%;
+          margin-left: -0.75em;
+          cursor: pointer;
+
+          img {
+            width: 100%;
+          }
+        }
       }
     }
 
@@ -76,6 +125,7 @@
       display: flex;
       padding: 0 !important;
       height: 60vh;
+      width: calc(100% + 20px);
 
       .messages {
         padding: 2em;
@@ -129,6 +179,7 @@
                 color: #000;
                 font-size: 0.9em;
                 line-height: 18px;
+                white-space: pre-wrap;
               }
             }
 
@@ -193,6 +244,7 @@
       flex: auto;
       outline: none;
       padding: 4px 1em;
+      overflow: hidden;
       border: none;
     }
 

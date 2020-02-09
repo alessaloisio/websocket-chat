@@ -1,27 +1,49 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { sendMessageComplete } from "../../redux/actions/message";
 
-const WidgetInput = props => {
+export default () => {
+  const room = useSelector(state => state.room.data);
+  const dispatch = useDispatch();
+
+  const inputRef = useRef();
   const [input, setInput] = useState("");
 
   // TODO: get input from localStorage
 
-  const handleInput = e => {
-    setInput(e);
+  const handleInputChange = e => {
+    setInput(e.target.value);
     // TODO: save on localStorage
+  };
+
+  const handleInputKeyPress = e => {
+    if (e.key === "Enter" && !e.ctrlKey) {
+      e.preventDefault();
+      handleSend();
+    } else if (e.key === "Enter") {
+      setInput(state => state + "\n");
+    }
   };
 
   const handleSend = () => {
     const data = {};
     data.content = input;
-    data.room = props.room._id;
+    data.room = room._id;
 
-    props.dispatch(sendMessageComplete(data));
+    dispatch(sendMessageComplete(data));
 
     setInput("");
   };
+
+  // Resize the textarea when input value change
+  useEffect(() => {
+    const el = inputRef.current;
+    setTimeout(() => {
+      el.style.cssText = "height:auto; padding:4px 1em";
+      el.style.cssText = `height: ${el.scrollHeight}px`;
+    }, 0);
+  }, [input]);
 
   return (
     <div className="Widget-Input">
@@ -32,7 +54,9 @@ const WidgetInput = props => {
         className="input-message"
         rows="1"
         placeholder="Type a message"
-        onChange={e => handleInput(e.target.value)}
+        ref={inputRef}
+        onChange={e => handleInputChange(e)}
+        onKeyPress={e => handleInputKeyPress(e)}
         value={input}
       ></textarea>
       <div className="input-options">
@@ -42,7 +66,3 @@ const WidgetInput = props => {
     </div>
   );
 };
-
-export default connect(state => ({
-  room: state.room.data
-}))(WidgetInput);
