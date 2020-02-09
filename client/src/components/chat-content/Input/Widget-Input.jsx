@@ -22,7 +22,7 @@ const WidgetInput = () => {
   }, [room]);
 
   const handleInputChange = e => {
-    setInput(e.targetvalue);
+    setInput(e.target.value);
   };
 
   const handleInputKeyPress = e => {
