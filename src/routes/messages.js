@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
   message.content = content;
 
   // Save and send element to user
-  // await Room.updateOne({ _id: room }, { $push: { messages: message } });
+  await Room.updateOne({ _id: room }, { $push: { messages: message } });
 
   // Emit message
   const data = await Room.findOne({ _id: room }, { users: 1, _id: 0 });

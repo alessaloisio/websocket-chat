@@ -13,13 +13,17 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const io = useSelector(state => state.socket);
   const sidebar = useSelector(state => state.sidebar.data);
+  const userId = useSelector(state => state.user.data._id);
 
   useEffect(() => {
-    // user are on the room, show the message
     let event;
     if (io && sidebar) {
       event = io.on("userStatus", data => {
-        dispatch(updateElementList(data));
+        const send = {};
+        send.room = data.userId * userId; // recipient
+        send.data = { "users_info.status": data.status };
+
+        dispatch(updateElementList(send));
       });
     }
 

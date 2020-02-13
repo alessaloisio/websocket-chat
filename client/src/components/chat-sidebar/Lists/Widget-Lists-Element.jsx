@@ -12,8 +12,9 @@ const WidgetListsElement = props => {
     dispatch(sidebarSelectRoom(id));
   };
 
-  const getElements = props.list.map(element => {
-    const personalInfo = element.group ? element.group : element.users_info[0];
+  const getElements = Object.keys(props.list).map(key => {
+    const element = props.list[key];
+    const personalInfo = element.group ? element.group : element.users_info;
 
     return (
       <li key={element._id} onClick={() => handleElement(`${element._id}`)}>

@@ -17,7 +17,7 @@ const WidgetLists = () => {
     <>
       {sidebar &&
         Object.keys(sidebar).map(key => {
-          if (sidebar[key].length)
+          if (Object.keys(sidebar[key]).length > 0)
             return <List name={key} list={sidebar[key]} />;
         })}
     </>

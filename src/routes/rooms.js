@@ -9,17 +9,29 @@ const router = new Router();
 
 // INFOS ROOM
 const getInfoRoom = async (user, room) => {
-  const users_info = await User.find({ _id: room.users });
+  const group =
+    room._id != parseInt(room._id) ? await Group.findById(room._id) : null;
 
   const favourite = !!(await Favourite.findOne({
     room: room._id,
     user
   }));
 
-  const group =
-    room._id != parseInt(room._id) ? await Group.findById(room._id) : null;
+  const users = {};
 
-  return { favourite, users_info, group };
+  if (group) {
+    users.users_info = {};
+    (
+      await User.find({
+        _id: room.users
+      })
+    ).map(user => (users.users_info[user._id] = user));
+  } else
+    users.users_info = await User.findOne({
+      _id: room.users.filter(u => u !== user)
+    });
+
+  return { favourite, group, ...users };
 };
 
 // Create group
@@ -179,9 +191,9 @@ router.get("/:id", async (req, res) => {
 // Get all user rooms
 router.get("/", async (req, res) => {
   const userRooms = {
-    favourites: [],
-    peoples: [],
-    groups: []
+    favourites: {},
+    peoples: {},
+    groups: {}
   };
 
   const rooms = await Promise.all(
@@ -205,9 +217,9 @@ router.get("/", async (req, res) => {
   );
 
   rooms.map(room => {
-    if (room.favourite) userRooms.favourites.push(room);
-    else if (room.group) userRooms.groups.push(room);
-    else userRooms.peoples.push(room);
+    if (room.favourite) userRooms.favourites[room._id] = room;
+    else if (room.group) userRooms.groups[room._id] = room;
+    else userRooms.peoples[room._id] = room;
   });
 
   res.json({ ...userRooms });

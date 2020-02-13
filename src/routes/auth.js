@@ -79,6 +79,7 @@ const getGithubUserInfo = accessToken => {
   return new Promise(async (resolve, reject) => {
     try {
       // Get User info
+      // LIKE : https://api.github.com/users/alessaloisio
       const { data } = await axios({
         method: "get",
         url: "https://api.github.com/user",

@@ -12,6 +12,7 @@ import "./Login.scss";
 const Login = () => {
   const dispatch = useDispatch();
 
+  // After redirect from /authorize
   const queries = getQueries(window.location.search);
   if (queries.access_token) {
     const expires = new Date();

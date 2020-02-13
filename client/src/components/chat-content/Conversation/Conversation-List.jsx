@@ -6,13 +6,17 @@ const ConversationList = props => {
   const { message } = props;
 
   const currentUser = useSelector(state => state.user.data);
-  const users = useSelector(state => state.room.data.users_info);
+  const room = useSelector(state => state.room.data);
 
   const owner = currentUser._id === message.owner;
 
   let user;
   if (!owner) {
-    user = users.filter(user => user._id === message.owner)[0];
+    if (room.group) {
+      user = room.users_info[message.owner];
+    } else {
+      user = room.users_info;
+    }
   }
 
   return (

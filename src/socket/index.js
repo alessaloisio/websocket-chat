@@ -38,19 +38,20 @@ export default io => {
     }
   });
 
+  // Client Events
   io.on("connection", async client => {
     console.log(`Client ${client.id} connected`);
     await User.updateOne({ _id: client.id }, { status: true });
-    emit2Others(client.id, true);
+    emitStatus2Others(client.id, true);
 
     client.on("disconnect", async () => {
       console.log("Client disconnected");
       await User.updateOne({ _id: client.id }, { status: false });
-      emit2Others(client.id, false);
+      emitStatus2Others(client.id, false);
     });
   });
 
-  const emit2Others = async (userId, status) => {
+  const emitStatus2Others = async (userId, status) => {
     const rooms = await Room.find({ users: userId }, { _id: 1, users: 1 });
     const peoplesRoom = rooms.filter(room => parseInt(room._id) == room._id);
     peoplesRoom.map(room => {

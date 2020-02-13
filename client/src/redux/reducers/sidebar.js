@@ -1,3 +1,5 @@
+import "@alessio95/object-update/src";
+
 import {
   FETCH_LIST_BEGIN,
   FETCH_LIST_FAILURE,
@@ -11,21 +13,6 @@ const initialState = {
   data: null,
   loading: false,
   error: null
-};
-
-const findAndRemove = (obj, id) => {
-  let element;
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      if (typeof obj[key] === "object") {
-        obj[key] = obj[key].filter(room => {
-          if (room._id === id) element = room;
-          return room._id !== id;
-        });
-      }
-    }
-  }
-  return [obj, element];
 };
 
 export default function(state = initialState, action) {
@@ -56,38 +43,41 @@ export default function(state = initialState, action) {
     }
 
     case ADD_ELEMENT_LIST: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.payload.name]: [
-            ...state.data[action.payload.name],
-            action.payload.data
-          ]
-        }
-      };
+      const { name, data } = action.payload;
+      // console.log(state.add(`${name}.${data._id}`, data));
+      if (
+        !state.find({
+          [`${name}.${data._id}`]: "$exist"
+        }).length
+      ) {
+        return state.add(name, {
+          [data._id]: data
+        });
+      }
     }
 
     case SWITCH_ELEMENT_LIST: {
-      const [data, element] = findAndRemove(
-        { ...state.data },
-        action.payload.room
-      );
+      const { room, dest } = action.payload;
+      const newState = { ...state.data };
+
+      Object.keys(newState).some(key => {
+        if (Object.keys(newState[key]).includes(room)) {
+          newState[dest][room] = newState[key][room];
+          delete newState[key][room];
+          return true;
+        }
+      });
 
       return {
         ...state,
-        data: {
-          ...data,
-          [action.payload.dest]: [...state.data[action.payload.dest], element]
-        }
+        data: newState
       };
     }
 
     case UPDATE_ELEMENT_LIST: {
-      console.log(action.payload);
-      return {
-        ...state
-      };
+      const { room, data } = action.payload;
+
+      return state.update({ _id: `${room}` }, data);
     }
 
     default:

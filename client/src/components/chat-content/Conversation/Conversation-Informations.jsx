@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 const ConversationInformations = () => {
   const room = useSelector(state => state.room.data);
 
-  const roomInfo = room.group ? room.group : room.users_info[0];
+  console.log(room);
+  const roomInfo = room.group ? room.group : room.users_info;
 
   return (
     <div className="conversation-informations">
@@ -22,15 +23,19 @@ const ConversationInformations = () => {
       {room.group && (
         <div className="users-infos">
           <p>Users : </p>
-          {room.users_info.map(user => (
-            <div className="avatar">
-              <img
-                src={user.info.avatar}
-                alt="User avatar"
-                title={user.info.name}
-              />
-            </div>
-          ))}
+          {Object.keys(room.users_info).map(key => {
+            const user = room.users_info[key];
+
+            return (
+              <div className="avatar">
+                <img
+                  src={user.info.avatar}
+                  alt="User avatar"
+                  title={user.info.name}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
