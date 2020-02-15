@@ -1,4 +1,4 @@
-import "@alessio95/object-update/src";
+import "@alessio95/object-update";
 
 import {
   FETCH_LIST_BEGIN,
@@ -15,7 +15,7 @@ const initialState = {
   error: null
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_LIST_BEGIN: {
       return {
@@ -44,16 +44,16 @@ export default function(state = initialState, action) {
 
     case ADD_ELEMENT_LIST: {
       const { name, data } = action.payload;
-      // console.log(state.add(`${name}.${data._id}`, data));
-      if (
-        !state.find({
-          [`${name}.${data._id}`]: "$exist"
-        }).length
-      ) {
-        return state.add(name, {
-          [data._id]: data
-        });
+
+      if (!state.exist(`${name}.${data._id}`)) {
+        return state
+          .new()
+          .add(name, {
+            [data._id]: data
+          });
       }
+
+      return state;
     }
 
     case SWITCH_ELEMENT_LIST: {
@@ -77,7 +77,9 @@ export default function(state = initialState, action) {
     case UPDATE_ELEMENT_LIST: {
       const { room, data } = action.payload;
 
-      return state.update({ _id: `${room}` }, data);
+      return state
+        .new()
+        .update({ _id: `${room}` }, data);
     }
 
     default:
