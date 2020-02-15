@@ -45,15 +45,11 @@ export default function (state = initialState, action) {
     case ADD_ELEMENT_LIST: {
       const { name, data } = action.payload;
 
-      if (!state.exist(`${name}.${data._id}`)) {
-        return state
-          .new()
-          .add(name, {
-            [data._id]: data
-          });
-      }
-
-      return state;
+      return state
+        .new()
+        .add(name, {
+          [data._id]: data
+        });
     }
 
     case SWITCH_ELEMENT_LIST: {
