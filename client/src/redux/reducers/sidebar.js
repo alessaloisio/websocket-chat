@@ -1,4 +1,4 @@
-import "@alessio95/object-update";
+import "obj-tweaks";
 
 import {
   FETCH_LIST_BEGIN,
