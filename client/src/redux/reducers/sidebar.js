@@ -54,20 +54,10 @@ export default function (state = initialState, action) {
 
     case SWITCH_ELEMENT_LIST: {
       const { room, dest } = action.payload;
-      const newState = { ...state.data };
 
-      Object.keys(newState).some(key => {
-        if (Object.keys(newState[key]).includes(room)) {
-          newState[dest][room] = newState[key][room];
-          delete newState[key][room];
-          return true;
-        }
-      });
-
-      return {
-        ...state,
-        data: newState
-      };
+      return state
+        .new()
+        .swap({ _id: room }, dest);
     }
 
     case UPDATE_ELEMENT_LIST: {
